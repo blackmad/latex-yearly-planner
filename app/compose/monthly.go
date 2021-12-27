@@ -1,11 +1,14 @@
 package compose
 
 import (
+	"fmt"
+
 	"github.com/kudrykv/latex-yearly-planner/app/components/page"
 	"github.com/kudrykv/latex-yearly-planner/app/config"
 )
 
 func Monthly(cfg config.Config, name string, template string, dailyDay DailyDay) (page.Modules, error) {
+	fmt.Println("montly", dailyDay.Index)
 	if dailyDay.Index != 0 {
 		return make(page.Modules, 0), nil
 		// TOOD make this work for multiple months again

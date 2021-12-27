@@ -149,7 +149,7 @@ func New(pathConfigs ...string) (Config, error) {
 
 func weekStartDate(date time.Time, startDay time.Weekday) time.Time {
 	offset := (int(startDay) - int(date.Weekday()) - 7) % 7
-	result := date.Add(time.Duration((offset-1)*24) * time.Hour)
+	result := date.Add(time.Duration(offset*24) * time.Hour)
 	return result
 }
 
@@ -163,7 +163,7 @@ func (cfg Config) ParsedStartDate() time.Time {
 		return weekStartDate(time.Now(), cfg.WeekStart)
 	}
 
-	if cfg.StartDate == "weekstart" {
+	if cfg.StartDate == "monthstart" {
 		tm, _ := time.Parse("2006-01-02", time.Now().Format("2006-01-02")[0:7]+"-01")
 		return tm
 	}

@@ -70,7 +70,7 @@ func NewWeeksForYear(wd time.Weekday, year *Year) Weeks {
 	weeks = append(weeks, week)
 
 	for ptr.Time.Year() == year.Number {
-		weeks = append(weeks, fillWeekly(wd, year, ptr))
+		weeks = append(weeks, FillWeekly(wd, year, ptr))
 		ptr = ptr.Add(7)
 	}
 
@@ -80,7 +80,7 @@ func NewWeeksForYear(wd time.Weekday, year *Year) Weeks {
 	return weeks
 }
 
-func fillWeekly(wd time.Weekday, year *Year, ptr Day) *Week {
+func FillWeekly(wd time.Weekday, year *Year, ptr Day) *Week {
 	qrtr := NewQuarter(wd, year, int(math.Ceil(float64(ptr.Time.Month())/3.)))
 	month := NewMonth(wd, year, qrtr, ptr.Time.Month())
 
@@ -212,11 +212,11 @@ func (w *Week) PrevExists() bool {
 }
 
 func (w *Week) Next() *Week {
-	return fillWeekly(w.Weekday, w.Year, w.Days[0].Add(7))
+	return FillWeekly(w.Weekday, w.Year, w.Days[0].Add(7))
 }
 
 func (w *Week) Prev() *Week {
-	return fillWeekly(w.Weekday, w.Year, w.Days[0].Add(-7))
+	return FillWeekly(w.Weekday, w.Year, w.Days[0].Add(-7))
 }
 
 func (w *Week) QuartersBreadcrumb() header.ItemsGroup {

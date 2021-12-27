@@ -67,82 +67,70 @@ func action(c *cli.Context) error {
 
 	index := 0
 
-	for _, quarter := range year.Quarters {
-		for _, month := range quarter.Months {
-			for _, week := range month.Weeks {
-				for _, day := range week.Days {
-					if day.Time.Before(cfg.ParsedStartDate()) {
-						continue
+	currentDate := cfg.ParsedStartDate()
+
+	for !currentDate.After(cfg.EndDate()) {
+		log.Println(currentDate)
+
+		for _, block := range cfg.Pages {
+
+			var mom []page.Modules
+			if fn, ok = ComposerMap[block.FuncName]; !ok {
+				fmt.Println((block))
+				return fmt.Errorf("unknown func " + block.FuncName)
+			}
+
+			day := cal.Day{Time: currentDate}
+			week := cal.FillWeekly(cfg.WeekStart, year, day)
+			quarter := cal.NewQuarter(cfg.WeekStart, year, int(day.Month())/3)
+			month := cal.NewMonth(cfg.WeekStart, year, quarter, day.Month())
+
+			log.Println("block name:", block.Name)
+			modules, err := fn(cfg, block.Name, block.Template, compose.DailyDay{
+				Day:     &day,
+				Month:   month,
+				Year:    year,
+				Quarter: quarter,
+				Week:    week,
+				Index:   index,
+			})
+
+			if err != nil {
+				return fmt.Errorf("%s: %w", block.FuncName, err)
+			}
+
+			mom = append(mom, modules)
+
+			if len(mom) == 0 {
+				return fmt.Errorf("modules of modules must have some modules")
+			}
+
+			allLen := len(mom[0])
+			for _, mods := range mom {
+				if len(mods) != allLen {
+					return errors.New("some modules are not aligned")
+				}
+			}
+
+			for i := 0; i < allLen; i++ {
+				for j, mod := range mom {
+					log.Println("one page", j, i)
+					HeaderTemplateLine := ""
+					if mod[i].HeaderTemplateFilename != "" {
+						HeaderTemplateLine = `{{ template "` + mod[i].HeaderTemplateFilename + `" dict "Cfg" .Cfg "Body" .Body }}`
 					}
+					BodyTemplateLine := `{{ template "` + mod[i].Template + `" dict "Cfg" .Cfg "Body" .Body }}`
 
-					if day.Time.After(cfg.EndDate()) {
-						continue
-					}
+					fullTemplate := HeaderTemplateLine + "\n" + BodyTemplateLine + "\n\\newpage" + "\n"
 
-					if day.Time.IsZero() {
-						continue
-					}
-
-					log.Println(day)
-
-					for _, block := range cfg.Pages {
-
-						var mom []page.Modules
-						if fn, ok = ComposerMap[block.FuncName]; !ok {
-							fmt.Println((block))
-							return fmt.Errorf("unknown func " + block.FuncName)
-						}
-
-						log.Println("block name:", block.Name)
-						modules, err := fn(cfg, block.Name, block.Template, compose.DailyDay{
-							Day:     &day,
-							Month:   month,
-							Year:    year,
-							Quarter: quarter,
-							Week:    week,
-							Index:   index,
-						})
-
-						index += 1
-
-						if err != nil {
-							return fmt.Errorf("%s: %w", block.FuncName, err)
-						}
-
-						mom = append(mom, modules)
-
-						if len(mom) == 0 {
-							return fmt.Errorf("modules of modules must have some modules")
-						}
-
-						allLen := len(mom[0])
-						for _, mods := range mom {
-							if len(mods) != allLen {
-								return errors.New("some modules are not aligned")
-							}
-						}
-
-						for i := 0; i < allLen; i++ {
-							for j, mod := range mom {
-								log.Println("one page", j, i)
-								HeaderTemplateLine := ""
-								if mod[i].HeaderTemplateFilename != "" {
-									HeaderTemplateLine = `{{ template "` + mod[i].HeaderTemplateFilename + `" dict "Cfg" .Cfg "Body" .Body }}`
-								}
-								BodyTemplateLine := `{{ template "` + mod[i].Template + `" dict "Cfg" .Cfg "Body" .Body }}`
-
-								fullTemplate := HeaderTemplateLine + "\n" + BodyTemplateLine + "\n\\newpage" + "\n"
-
-								if err = t.ExecuteContents(wr, fullTemplate, mod[i]); err != nil {
-									return fmt.Errorf("execute %s on %s: %w", block.FuncName, fullTemplate, err)
-								}
-							}
-						}
-
+					if err = t.ExecuteContents(wr, fullTemplate, mod[i]); err != nil {
+						return fmt.Errorf("execute %s on %s: %w", block.FuncName, fullTemplate, err)
 					}
 				}
 			}
 		}
+		index += 1
+		currentDate = currentDate.AddDate(0, 0, 1)
 	}
 
 	if err = ioutil.WriteFile("out/content.tex", wr.Bytes(), 0600); err != nil {

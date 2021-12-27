@@ -15,7 +15,6 @@ func Title(cfg config.Config, name string, template string, dailyDay DailyDay) (
 	if dailyDay.Index != 0 {
 		modules := make(page.Modules, 0, 1)
 		return modules, nil
-
 	}
 
 	return page.Modules{{Cfg: cfg, Template: template}}, nil
