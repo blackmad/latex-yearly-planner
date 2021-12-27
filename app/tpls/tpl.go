@@ -75,3 +75,12 @@ func (t Tpl) Execute(wr io.Writer, name string, data interface{}) error {
 
 	return nil
 }
+
+func (t Tpl) ExecuteContents(wr io.Writer, contents string, data interface{}) error {
+	t.tpl.Parse(contents)
+	if err := t.tpl.ExecuteTemplate(wr, "", data); err != nil {
+		return fmt.Errorf("execute template: %w", err)
+	}
+
+	return nil
+}

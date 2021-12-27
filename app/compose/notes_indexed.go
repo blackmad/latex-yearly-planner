@@ -7,15 +7,16 @@ import (
 	"github.com/kudrykv/latex-yearly-planner/app/config"
 )
 
-func NotesIndexed(cfg config.Config, tpls []string) (page.Modules, error) {
+func NotesIndexed(cfg config.Config, template string) (page.Modules, error) {
 	index := note.NewIndex(cfg.Year, cfg.Layout.Numbers.NotesOnPage, cfg.Layout.Numbers.NotesIndexPages)
 	year := cal.NewYear(cfg.WeekStart, cfg.Year)
 	modules := make(page.Modules, 0, 1)
 
 	for idx, indexPage := range index.Pages {
 		modules = append(modules, page.Module{
-			Cfg: cfg,
-			Tpl: tpls[0],
+			Cfg:                    cfg,
+			Template:               template,
+			HeaderTemplateFilename: cfg.DefaultHeader,
 			Body: map[string]interface{}{
 				"Notes":        indexPage,
 				"Breadcrumb":   indexPage.Breadcrumb(cfg.Year, idx),
@@ -31,8 +32,9 @@ func NotesIndexed(cfg config.Config, tpls []string) (page.Modules, error) {
 	for idxPage, notes := range index.Pages {
 		for _, nt := range notes {
 			modules = append(modules, page.Module{
-				Cfg: cfg,
-				Tpl: tpls[1],
+				Cfg:                    cfg,
+				Template:               template,
+				HeaderTemplateFilename: cfg.DefaultHeader,
 				Body: map[string]interface{}{
 					"Note":         nt,
 					"Breadcrumb":   nt.Breadcrumb(),

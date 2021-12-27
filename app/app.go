@@ -83,28 +83,27 @@ func action(c *cli.Context) error {
 
 					log.Println(day)
 
-					for _, file := range cfg.Pages {
+					for _, block := range cfg.Pages {
 
 						var mom []page.Modules
-						for _, block := range file.RenderBlocks {
-							if fn, ok = ComposerMap[block.FuncName]; !ok {
-								return fmt.Errorf("unknown func " + block.FuncName)
-							}
-
-							modules, err := fn(cfg, block.Tpls, compose.DailyDay{
-								Day:     &day,
-								Month:   month,
-								Year:    year,
-								Quarter: quarter,
-								Week:    week,
-							})
-
-							if err != nil {
-								return fmt.Errorf("%s: %w", block.FuncName, err)
-							}
-
-							mom = append(mom, modules)
+						if fn, ok = ComposerMap[block.FuncName]; !ok {
+							fmt.Println((block))
+							return fmt.Errorf("unknown func " + block.FuncName)
 						}
+
+						modules, err := fn(cfg, block.Template, compose.DailyDay{
+							Day:     &day,
+							Month:   month,
+							Year:    year,
+							Quarter: quarter,
+							Week:    week,
+						})
+
+						if err != nil {
+							return fmt.Errorf("%s: %w", block.FuncName, err)
+						}
+
+						mom = append(mom, modules)
 
 						if len(mom) == 0 {
 							return fmt.Errorf("modules of modules must have some modules")
@@ -120,19 +119,25 @@ func action(c *cli.Context) error {
 						for i := 0; i < allLen; i++ {
 							for j, mod := range mom {
 								log.Println("one page", j, i)
-								if err = t.Execute(wr, mod[i].Tpl, mod[i]); err != nil {
-									return fmt.Errorf("execute %s on %s: %w", file.RenderBlocks[j].FuncName, mod[i].Tpl, err)
+								HeaderTemplateLine := `{{ template "` + mod[i].HeaderTemplateFilename + `" dict "Cfg" .Cfg "Body" .Body }}`
+								BodyTemplateLine := `{{ template "` + mod[i].Template + `" dict "Cfg" .Cfg "Body" .Body }}`
+
+								fullTemplate := HeaderTemplateLine + "\n" + BodyTemplateLine + "\n\\pagebreak" + "\n"
+
+								if err = t.ExecuteContents(wr, fullTemplate, mod[i]); err != nil {
+									return fmt.Errorf("execute %s on %s: %w", block.FuncName, fullTemplate, err)
 								}
 							}
 						}
 
-						if err = ioutil.WriteFile("out/"+file.Name+".tex", wr.Bytes(), 0600); err != nil {
-							return fmt.Errorf("ioutil write file: %w", err)
-						}
 					}
 				}
 			}
 		}
+	}
+
+	if err = ioutil.WriteFile("out/content.tex", wr.Bytes(), 0600); err != nil {
+		return fmt.Errorf("ioutil write file: %w", err)
 	}
 
 	return nil
@@ -154,7 +159,7 @@ func RootFilename(pathconfig string) string {
 	return pathconfig + ".tex"
 }
 
-type Composer func(cfg config.Config, tpls []string, dailyDay compose.DailyDay) (page.Modules, error)
+type Composer func(cfg config.Config, template string, dailyDay compose.DailyDay) (page.Modules, error)
 
 var ComposerMap = map[string]Composer{
 	// "title":         compose.Title,

@@ -7,7 +7,7 @@ import (
 	"github.com/kudrykv/latex-yearly-planner/app/config"
 )
 
-func Quarterly(cfg config.Config, tpls []string) (page.Modules, error) {
+func Quarterly(cfg config.Config, template string) (page.Modules, error) {
 	modules := make(page.Modules, 0, 4)
 	year := cal.NewYear(cfg.WeekStart, cfg.Year)
 
@@ -17,8 +17,9 @@ func Quarterly(cfg config.Config, tpls []string) (page.Modules, error) {
 
 	for _, quarter := range year.Quarters {
 		modules = append(modules, page.Module{
-			Cfg: cfg,
-			Tpl: tpls[0],
+			Cfg:                    cfg,
+			Template:               template,
+			HeaderTemplateFilename: cfg.DefaultHeader,
 			Body: map[string]interface{}{
 				"Year":         year,
 				"Quarter":      quarter,

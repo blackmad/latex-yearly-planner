@@ -11,7 +11,8 @@ type Page struct {
 
 type Modules []Module
 type Module struct {
-	Cfg  config.Config
-	Tpl  string
-	Body interface{}
+	Cfg                    config.Config
+	Template               string
+	HeaderTemplateFilename string
+	Body                   interface{}
 }

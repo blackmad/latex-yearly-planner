@@ -5,7 +5,7 @@ import (
 	"github.com/kudrykv/latex-yearly-planner/app/config"
 )
 
-func Weekly(cfg config.Config, tpls []string, dailyDay DailyDay) (page.Modules, error) {
+func Weekly(cfg config.Config, template string, dailyDay DailyDay) (page.Modules, error) {
 	if dailyDay.Day.Time.Weekday() != cfg.WeekStart {
 		return make(page.Modules, 0, 0), nil
 	}
@@ -16,8 +16,9 @@ func Weekly(cfg config.Config, tpls []string, dailyDay DailyDay) (page.Modules, 
 	week := dailyDay.Week
 
 	modules = append(modules, page.Module{
-		Cfg: cfg,
-		Tpl: tpls[0],
+		Cfg:                    cfg,
+		Template:               template,
+		HeaderTemplateFilename: cfg.DefaultHeader,
 		Body: map[string]interface{}{
 			"Year":         year,
 			"Week":         week,

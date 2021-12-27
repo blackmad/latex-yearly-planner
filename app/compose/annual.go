@@ -9,12 +9,13 @@ import (
 	"github.com/kudrykv/latex-yearly-planner/app/config"
 )
 
-func Annual(cfg config.Config, tpls []string) (page.Modules, error) {
+func Annual(cfg config.Config, template string) (page.Modules, error) {
 	year := cal.NewYear(cfg.WeekStart, cfg.Year)
 
 	return page.Modules{{
-		Cfg: cfg,
-		Tpl: tpls[0],
+		Cfg:                    cfg,
+		Template:               template,
+		HeaderTemplateFilename: cfg.DefaultHeader,
 		Body: map[string]interface{}{
 			"Year":         year,
 			"Breadcrumb":   year.Breadcrumb(),

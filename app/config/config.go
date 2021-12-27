@@ -28,6 +28,8 @@ type Config struct {
 	StartDate string
 	Duration  string
 
+	DefaultHeader string
+
 	Pages Pages
 
 	Layout Layout
@@ -40,18 +42,17 @@ type Debug struct {
 
 type Pages []Page
 type Page struct {
-	Name         string
-	RenderBlocks RenderBlocks
+	Name     string
+	FuncName string
+	Template string
 }
 
 type RenderBlocks []RenderBlock
 
 func (r Pages) WeeklyEnabled() bool {
 	for _, s := range r {
-		for _, block := range s.RenderBlocks {
-			if block.FuncName == "weekly" {
-				return true
-			}
+		if s.FuncName == "weekly" {
+			return true
 		}
 	}
 
@@ -60,7 +61,7 @@ func (r Pages) WeeklyEnabled() bool {
 
 type RenderBlock struct {
 	FuncName string
-	Tpls     []string
+	Template string
 }
 
 type Colors struct {
@@ -140,6 +141,8 @@ func New(pathConfigs ...string) (Config, error) {
 	if cfg.Year == 0 {
 		cfg.Year = cfg.ParsedStartDate().Year()
 	}
+
+	fmt.Println(cfg)
 
 	return cfg, nil
 }

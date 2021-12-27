@@ -49,7 +49,5 @@
 
 {{template "macro.tpl" .}}
 
-  {{range .Pages -}}
-    \include{ {{- .Name -}} }
-  {{end}}
+\include{content}
 \end{document}

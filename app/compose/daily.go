@@ -26,8 +26,8 @@ type DailyDay struct {
 	Day     *cal.Day
 }
 
-func DailyStuff(prefix, leaf string) func(cfg config.Config, tpls []string, dailyDay DailyDay) (page.Modules, error) {
-	return func(cfg config.Config, tpls []string, dailyDay DailyDay) (page.Modules, error) {
+func DailyStuff(prefix, leaf string) func(cfg config.Config, template string, dailyDay DailyDay) (page.Modules, error) {
+	return func(cfg config.Config, template string, dailyDay DailyDay) (page.Modules, error) {
 		modules := make(page.Modules, 0, 1)
 
 		year := dailyDay.Year
@@ -37,8 +37,9 @@ func DailyStuff(prefix, leaf string) func(cfg config.Config, tpls []string, dail
 		day := dailyDay.Day
 
 		modules = append(modules, page.Module{
-			Cfg: cfg,
-			Tpl: tpls[0],
+			Cfg:                    cfg,
+			Template:               template,
+			HeaderTemplateFilename: cfg.DefaultHeader,
 			Body: map[string]interface{}{
 				"Year":         year,
 				"Quarter":      quarter,
