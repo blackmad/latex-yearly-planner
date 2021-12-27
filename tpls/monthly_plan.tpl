@@ -1,24 +1,23 @@
-\myUnderline{Today I am open to the possibility of ...}
+\myUnderline{This month’s positive self talk}
 \myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
 \medskip
 
-\myUnderline{What I love bout my work is ...}
+\myUnderline{This month’s focus}
 \myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
 \medskip
 
-\myUnderline{Today I am inspired to take these actions 1/2/3}
+\myUnderline{Personal goals}
 \myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
 \medskip
 
-\myUnderline{What am I grateful for today?}
+\myUnderline{Professional goals}
 \myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
 \medskip
 
-\myUnderline{I am looking forward to ...}
+\myUnderline{This month I’m most excited about...}
 \myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
 \medskip
 
-\myUnderline{Todos and Priorities}
+\myUnderline{Happy and inspiring things I will do}
 \myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
 \medskip
-

@@ -2,7 +2,7 @@
 \myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
 \medskip
 
-\myUnderline{What I love bout my work is ...}
+\myUnderline{What I love about my work is ...}
 \myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
 \medskip
 

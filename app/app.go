@@ -65,6 +65,8 @@ func action(c *cli.Context) error {
 
 	wr.Reset()
 
+	index := 0
+
 	for _, quarter := range year.Quarters {
 		for _, month := range quarter.Months {
 			for _, week := range month.Weeks {
@@ -98,7 +100,10 @@ func action(c *cli.Context) error {
 							Year:    year,
 							Quarter: quarter,
 							Week:    week,
+							Index:   index,
 						})
+
+						index += 1
 
 						if err != nil {
 							return fmt.Errorf("%s: %w", block.FuncName, err)
@@ -120,10 +125,13 @@ func action(c *cli.Context) error {
 						for i := 0; i < allLen; i++ {
 							for j, mod := range mom {
 								log.Println("one page", j, i)
-								HeaderTemplateLine := `{{ template "` + mod[i].HeaderTemplateFilename + `" dict "Cfg" .Cfg "Body" .Body }}`
+								HeaderTemplateLine := ""
+								if mod[i].HeaderTemplateFilename != "" {
+									HeaderTemplateLine = `{{ template "` + mod[i].HeaderTemplateFilename + `" dict "Cfg" .Cfg "Body" .Body }}`
+								}
 								BodyTemplateLine := `{{ template "` + mod[i].Template + `" dict "Cfg" .Cfg "Body" .Body }}`
 
-								fullTemplate := HeaderTemplateLine + "\n" + BodyTemplateLine + "\n\\pagebreak" + "\n"
+								fullTemplate := HeaderTemplateLine + "\n" + BodyTemplateLine + "\n\\newpage" + "\n"
 
 								if err = t.ExecuteContents(wr, fullTemplate, mod[i]); err != nil {
 									return fmt.Errorf("execute %s on %s: %w", block.FuncName, fullTemplate, err)
@@ -163,11 +171,11 @@ func RootFilename(pathconfig string) string {
 type Composer func(cfg config.Config, name string, template string, dailyDay compose.DailyDay) (page.Modules, error)
 
 var ComposerMap = map[string]Composer{
-	// "title":         compose.Title,
+	"title": compose.Title,
 	// "annual":        compose.Annual,
 	// "quarterly":     compose.Quarterly,
-	// "monthly":       compose.Monthly,
-	"weekly": compose.Weekly,
-	"daily":  compose.Daily,
+	"monthly": compose.Monthly,
+	"weekly":  compose.Weekly,
+	"daily":   compose.Daily,
 	// "notes_indexed": compose.NotesIndexed,
 }

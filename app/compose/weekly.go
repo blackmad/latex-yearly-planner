@@ -7,7 +7,7 @@ import (
 
 func Weekly(cfg config.Config, name string, template string, dailyDay DailyDay) (page.Modules, error) {
 	if dailyDay.Day.Time.Weekday() != cfg.WeekStart {
-		return make(page.Modules, 0, 0), nil
+		return make(page.Modules, 0), nil
 	}
 
 	modules := make(page.Modules, 0, 1)

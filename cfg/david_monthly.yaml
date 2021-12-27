@@ -1,15 +1,15 @@
-weekstart: 1
+weekstart: 0
 ampmtime: false
 dotted: true
 calafterschedule: false
 addlasthalfhour: true
-startdate: monthstart
+startdate: weekstart
 duration: 1month
 
 layout:
   paper:
-    width: 6in
-    height: 9in
+    width: 5.5in
+    height: 8.5in
 
     marginparwidth: 1cm
     marginparsep: 0cm
@@ -63,12 +63,28 @@ layout:
 defaultheader: breadcrumb_header.tpl
 
 pages:
+  - name: Title Page
+    funcname: title
+    template: title.tpl
+  - name: Month Plan
+    funcname: monthly
+    template: monthly_plan.tpl
+  - name: Month Calendar
+    funcname: monthly
+    template: monthTabularV2.tpl
+  - name: Weekly Reflect
+    funcname: weekly
+    template: weekly_reflect.tpl
   - name: Weekly Plan
     funcname: weekly
-    template: weekly.tpl
+    template: weekly_plan.tpl
+  - name: Daily Plan
+    funcname: daily
+    template: daily_plan.tpl
   - name: Daily Reflection
     funcname: daily
     template: daily_reflect.tpl
+
   # - name: daily_plan
   #   renderblocks:
   #     - funcname: daily_plan

@@ -19,6 +19,7 @@ type DailyDay struct {
 	Year    *cal.Year
 	Week    *cal.Week
 	Day     *cal.Day
+	Index   int
 }
 
 func Daily(cfg config.Config, name string, template string, dailyDay DailyDay) (page.Modules, error) {
