@@ -8,6 +8,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/kudrykv/latex-yearly-planner/app/components/cal"
 	"github.com/kudrykv/latex-yearly-planner/app/components/page"
 	"github.com/kudrykv/latex-yearly-planner/app/compose"
 	"github.com/kudrykv/latex-yearly-planner/app/config"
@@ -59,45 +60,73 @@ func action(c *cli.Context) error {
 		return fmt.Errorf("ioutil write file: %w", err)
 	}
 
-	for _, file := range cfg.Pages {
-		wr.Reset()
+	year := cal.NewYear(cfg.WeekStart, cfg.Year)
 
-		var mom []page.Modules
-		for _, block := range file.RenderBlocks {
-			if fn, ok = ComposerMap[block.FuncName]; !ok {
-				return fmt.Errorf("unknown func " + block.FuncName)
-			}
+	wr.Reset()
 
-			modules, err := fn(cfg, block.Tpls)
+	for _, quarter := range year.Quarters {
+		for _, month := range quarter.Months {
+			for _, week := range month.Weeks {
+				for _, day := range week.Days {
+					if day.Time.Before(cfg.ParsedStartDate()) {
+						continue
+					}
 
-			if err != nil {
-				return fmt.Errorf("%s: %w", block.FuncName, err)
-			}
+					if day.Time.After(cfg.EndDate()) {
+						continue
+					}
 
-			mom = append(mom, modules)
-		}
+					if day.Time.IsZero() {
+						continue
+					}
+					for _, file := range cfg.Pages {
 
-		if len(mom) == 0 {
-			return fmt.Errorf("modules of modules must have some modules")
-		}
+						var mom []page.Modules
+						for _, block := range file.RenderBlocks {
+							if fn, ok = ComposerMap[block.FuncName]; !ok {
+								return fmt.Errorf("unknown func " + block.FuncName)
+							}
 
-		allLen := len(mom[0])
-		for _, mods := range mom {
-			if len(mods) != allLen {
-				return errors.New("some modules are not aligned")
-			}
-		}
+							modules, err := fn(cfg, block.Tpls, compose.DailyDay{
+								Day:     &day,
+								Month:   month,
+								Year:    year,
+								Quarter: quarter,
+								Week:    week,
+							})
 
-		for i := 0; i < allLen; i++ {
-			for j, mod := range mom {
-				if err = t.Execute(wr, mod[i].Tpl, mod[i]); err != nil {
-					return fmt.Errorf("execute %s on %s: %w", file.RenderBlocks[j].FuncName, mod[i].Tpl, err)
+							if err != nil {
+								return fmt.Errorf("%s: %w", block.FuncName, err)
+							}
+
+							mom = append(mom, modules)
+						}
+
+						if len(mom) == 0 {
+							return fmt.Errorf("modules of modules must have some modules")
+						}
+
+						allLen := len(mom[0])
+						for _, mods := range mom {
+							if len(mods) != allLen {
+								return errors.New("some modules are not aligned")
+							}
+						}
+
+						for i := 0; i < allLen; i++ {
+							for j, mod := range mom {
+								if err = t.Execute(wr, mod[i].Tpl, mod[i]); err != nil {
+									return fmt.Errorf("execute %s on %s: %w", file.RenderBlocks[j].FuncName, mod[i].Tpl, err)
+								}
+							}
+						}
+
+						if err = ioutil.WriteFile("out/"+file.Name+".tex", wr.Bytes(), 0600); err != nil {
+							return fmt.Errorf("ioutil write file: %w", err)
+						}
+					}
 				}
 			}
-		}
-
-		if err = ioutil.WriteFile("out/"+file.Name+".tex", wr.Bytes(), 0600); err != nil {
-			return fmt.Errorf("ioutil write file: %w", err)
 		}
 	}
 
@@ -120,17 +149,17 @@ func RootFilename(pathconfig string) string {
 	return pathconfig + ".tex"
 }
 
-type Composer func(cfg config.Config, tpls []string) (page.Modules, error)
+type Composer func(cfg config.Config, tpls []string, dailyDay compose.DailyDay) (page.Modules, error)
 
 var ComposerMap = map[string]Composer{
-	"title":         compose.Title,
-	"annual":        compose.Annual,
-	"quarterly":     compose.Quarterly,
-	"monthly":       compose.Monthly,
-	"weekly":        compose.Weekly,
+	// "title":         compose.Title,
+	// "annual":        compose.Annual,
+	// "quarterly":     compose.Quarterly,
+	// "monthly":       compose.Monthly,
+	// "weekly":        compose.Weekly,
 	"daily":         compose.Daily,
 	"daily_reflect": compose.DailyReflect,
 	"daily_plan":    compose.DailyPlan,
 	"daily_notes":   compose.DailyNotes,
-	"notes_indexed": compose.NotesIndexed,
+	// "notes_indexed": compose.NotesIndexed,
 }

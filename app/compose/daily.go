@@ -18,48 +18,41 @@ func PageHeader(leaf string) header.Items {
 	return items
 }
 
-func DailyStuff(prefix, leaf string) func(cfg config.Config, tpls []string) (page.Modules, error) {
-	return func(cfg config.Config, tpls []string) (page.Modules, error) {
-		year := cal.NewYear(cfg.WeekStart, cfg.Year)
-		modules := make(page.Modules, 0, cfg.DurationDays())
+type DailyDay struct {
+	Quarter *cal.Quarter
+	Month   *cal.Month
+	Year    *cal.Year
+	Week    *cal.Week
+	Day     *cal.Day
+}
 
-		for _, quarter := range year.Quarters {
-			for _, month := range quarter.Months {
-				for _, week := range month.Weeks {
-					for _, day := range week.Days {
-						if day.Time.Before(cfg.ParsedStartDate()) {
-							continue
-						}
+func DailyStuff(prefix, leaf string) func(cfg config.Config, tpls []string, dailyDay DailyDay) (page.Modules, error) {
+	return func(cfg config.Config, tpls []string, dailyDay DailyDay) (page.Modules, error) {
+		modules := make(page.Modules, 0, 1)
 
-						if day.Time.After(cfg.EndDate()) {
-							continue
-						}
+		year := dailyDay.Year
+		month := dailyDay.Month
+		quarter := dailyDay.Quarter
+		week := dailyDay.Week
+		day := dailyDay.Day
 
-						if day.Time.IsZero() {
-							continue
-						}
-
-						modules = append(modules, page.Module{
-							Cfg: cfg,
-							Tpl: tpls[0],
-							Body: map[string]interface{}{
-								"Year":         year,
-								"Quarter":      quarter,
-								"Month":        month,
-								"Week":         week,
-								"Day":          day,
-								"Breadcrumb":   day.Breadcrumb(prefix, "", cfg.ClearTopRightCorner && len(leaf) > 0),
-								"HeadingMOS":   day.HeadingMOS(prefix, leaf),
-								"SideQuarters": year.SideQuarters(day.Quarter()),
-								"SideMonths":   year.SideMonths(day.Month()),
-								"Extra":        PageHeader(leaf),
-								"Extra2":       extra2(cfg.ClearTopRightCorner, false, false, week, 0),
-							},
-						})
-					}
-				}
-			}
-		}
+		modules = append(modules, page.Module{
+			Cfg: cfg,
+			Tpl: tpls[0],
+			Body: map[string]interface{}{
+				"Year":         year,
+				"Quarter":      quarter,
+				"Month":        month,
+				"Week":         week,
+				"Day":          day,
+				"Breadcrumb":   day.Breadcrumb(prefix, "", cfg.ClearTopRightCorner && len(leaf) > 0),
+				"HeadingMOS":   day.HeadingMOS(prefix, leaf),
+				"SideQuarters": year.SideQuarters(day.Quarter()),
+				"SideMonths":   year.SideMonths(day.Month()),
+				"Extra":        PageHeader(leaf),
+				"Extra2":       extra2(cfg.ClearTopRightCorner, false, false, week, 0),
+			},
+		})
 
 		return modules, nil
 	}
