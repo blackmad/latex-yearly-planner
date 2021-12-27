@@ -2,6 +2,10 @@
 
 set -eo pipefail
 
+set -x
+
+if [ -z $CFG ]; then CFG=$1; fi
+
 go run cmd/plannergen/plannergen.go --config "${CFG}"
 
 nakedname=$(echo "${CFG}" | rev | cut -d, -f1 | cut -d'/' -f 1 | cut -d'.' -f 2-99 | rev)
