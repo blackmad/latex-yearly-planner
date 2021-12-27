@@ -69,7 +69,6 @@ func action(c *cli.Context) error {
 		for _, month := range quarter.Months {
 			for _, week := range month.Weeks {
 				for _, day := range week.Days {
-					log.Println(day)
 					if day.Time.Before(cfg.ParsedStartDate()) {
 						continue
 					}
@@ -81,6 +80,9 @@ func action(c *cli.Context) error {
 					if day.Time.IsZero() {
 						continue
 					}
+
+					log.Println(day)
+
 					for _, file := range cfg.Pages {
 
 						var mom []page.Modules
@@ -117,6 +119,7 @@ func action(c *cli.Context) error {
 
 						for i := 0; i < allLen; i++ {
 							for j, mod := range mom {
+								log.Println("one page", j, i)
 								if err = t.Execute(wr, mod[i].Tpl, mod[i]); err != nil {
 									return fmt.Errorf("execute %s on %s: %w", file.RenderBlocks[j].FuncName, mod[i].Tpl, err)
 								}

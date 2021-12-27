@@ -166,7 +166,6 @@ func (cfg Config) EndDate() time.Time {
 	regex := *regexp.MustCompile(`(\d+)(\w+)`)
 	res := regex.FindAllStringSubmatch(cfg.Duration, -1)
 
-	log.Println(cfg.Duration, res)
 	durationNum, _ := strconv.Atoi(res[0][1])
 	durationType := res[0][2]
 
