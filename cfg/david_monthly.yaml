@@ -61,13 +61,18 @@ layout:
     lightgray: gray!50
 
 pages:
-  - name: daily_reflect
+  - name: weekly
     renderblocks:
-      - funcname: daily_reflect
+      - funcname: weekly
         tpls:
-          - breadcrumb_06_daily_reflect.tpl
-  - name: daily_plan
-    renderblocks:
-      - funcname: daily_plan
-        tpls:
-          - breadcrumb_10_daily_plan.tpl
+          - breadcrumb_04_weekly.tpl
+  # - name: daily_reflect
+  #   renderblocks:
+  #     - funcname: daily_reflect
+  #       tpls:
+  #         - breadcrumb_06_daily_reflect.tpl
+  # - name: daily_plan
+  #   renderblocks:
+  #     - funcname: daily_plan
+  #       tpls:
+  #         - breadcrumb_10_daily_plan.tpl

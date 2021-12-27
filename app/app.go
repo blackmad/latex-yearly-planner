@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"strings"
 
@@ -68,6 +69,7 @@ func action(c *cli.Context) error {
 		for _, month := range quarter.Months {
 			for _, week := range month.Weeks {
 				for _, day := range week.Days {
+					log.Println(day)
 					if day.Time.Before(cfg.ParsedStartDate()) {
 						continue
 					}
@@ -156,7 +158,7 @@ var ComposerMap = map[string]Composer{
 	// "annual":        compose.Annual,
 	// "quarterly":     compose.Quarterly,
 	// "monthly":       compose.Monthly,
-	// "weekly":        compose.Weekly,
+	"weekly":        compose.Weekly,
 	"daily":         compose.Daily,
 	"daily_reflect": compose.DailyReflect,
 	"daily_plan":    compose.DailyPlan,

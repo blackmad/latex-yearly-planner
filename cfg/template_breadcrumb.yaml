@@ -29,7 +29,7 @@ pages:
         tpls:
           - breadcrumb_04_weekly.tpl
 
-  - name: daily
+  - name: `ily
     renderblocks:
       - funcname: daily
         tpls:
