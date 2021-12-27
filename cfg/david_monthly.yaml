@@ -60,13 +60,13 @@ layout:
     gray: gray
     lightgray: gray!50
 
-defaultheader: breadcrumb_00_header.tpl
+defaultheader: breadcrumb_header.tpl
 
 pages:
-  - name: weekly
+  - name: Weekly Plan
     funcname: weekly
     template: weekly.tpl
-  - name: daily_reflect
+  - name: Daily Reflection
     funcname: daily
     template: daily_reflect.tpl
   # - name: daily_plan

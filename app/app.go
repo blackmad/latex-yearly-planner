@@ -91,6 +91,7 @@ func action(c *cli.Context) error {
 							return fmt.Errorf("unknown func " + block.FuncName)
 						}
 
+						log.Println("block name:", block.Name)
 						modules, err := fn(cfg, block.Name, block.Template, compose.DailyDay{
 							Day:     &day,
 							Month:   month,
