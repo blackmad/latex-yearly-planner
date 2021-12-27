@@ -5,7 +5,7 @@ import (
 	"github.com/kudrykv/latex-yearly-planner/app/config"
 )
 
-func Weekly(cfg config.Config, template string, dailyDay DailyDay) (page.Modules, error) {
+func Weekly(cfg config.Config, name string, template string, dailyDay DailyDay) (page.Modules, error) {
 	if dailyDay.Day.Time.Weekday() != cfg.WeekStart {
 		return make(page.Modules, 0, 0), nil
 	}

@@ -91,7 +91,7 @@ func action(c *cli.Context) error {
 							return fmt.Errorf("unknown func " + block.FuncName)
 						}
 
-						modules, err := fn(cfg, block.Template, compose.DailyDay{
+						modules, err := fn(cfg, block.Name, block.Template, compose.DailyDay{
 							Day:     &day,
 							Month:   month,
 							Year:    year,
@@ -159,17 +159,14 @@ func RootFilename(pathconfig string) string {
 	return pathconfig + ".tex"
 }
 
-type Composer func(cfg config.Config, template string, dailyDay compose.DailyDay) (page.Modules, error)
+type Composer func(cfg config.Config, name string, template string, dailyDay compose.DailyDay) (page.Modules, error)
 
 var ComposerMap = map[string]Composer{
 	// "title":         compose.Title,
 	// "annual":        compose.Annual,
 	// "quarterly":     compose.Quarterly,
 	// "monthly":       compose.Monthly,
-	"weekly":        compose.Weekly,
-	"daily":         compose.Daily,
-	"daily_reflect": compose.DailyReflect,
-	"daily_plan":    compose.DailyPlan,
-	"daily_notes":   compose.DailyNotes,
+	"weekly": compose.Weekly,
+	"daily":  compose.Daily,
 	// "notes_indexed": compose.NotesIndexed,
 }
