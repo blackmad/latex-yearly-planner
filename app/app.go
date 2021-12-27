@@ -69,6 +69,7 @@ func action(c *cli.Context) error {
 			}
 
 			modules, err := fn(cfg, block.Tpls)
+
 			if err != nil {
 				return fmt.Errorf("%s: %w", block.FuncName, err)
 			}

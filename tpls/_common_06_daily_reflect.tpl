@@ -6,5 +6,5 @@
 \myMash{\myNumDailyDiaryBest}{\myNumDotWidthFull}
 \medskip
 
-\myUnderline{Daily log}
+\myUnderline{Daily logger}
 \myMash{\myNumDailyDiaryLog}{\myNumDotWidthFull}

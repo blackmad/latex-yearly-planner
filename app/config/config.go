@@ -3,8 +3,12 @@ package config
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"strings"
 	"time"
+
+	"regexp"
+	"strconv"
 
 	"github.com/caarlos0/env/v6"
 	"gopkg.in/yaml.v3"
@@ -20,6 +24,9 @@ type Config struct {
 	ClearTopRightCorner bool
 	AMPMTime            bool
 	AddLastHalfHour     bool
+
+	StartDate string
+	Duration  string
 
 	Pages Pages
 
@@ -131,8 +138,58 @@ func New(pathConfigs ...string) (Config, error) {
 	}
 
 	if cfg.Year == 0 {
-		cfg.Year = time.Now().Year()
+		cfg.Year = cfg.ParsedStartDate().Year()
 	}
 
 	return cfg, nil
+}
+
+func (cfg Config) ParsedStartDate() time.Time {
+	if cfg.StartDate == "today" {
+		tm, _ := time.Parse("2006-01-02", time.Now().Format("2006-01-02"))
+		return tm
+	}
+
+	if cfg.StartDate == "monthstart" {
+		tm, _ := time.Parse("2006-01-02", time.Now().Format("2006-01-02")[0:7]+"-01")
+		return tm
+	}
+
+	return time.Date(cfg.Year, 1, 1, 0, 0, 0, 0, time.Local)
+}
+
+func (cfg Config) DurationDays() int {
+	return -1 * int(cfg.ParsedStartDate().Sub(cfg.EndDate()).Hours()) / 24
+}
+
+func (cfg Config) EndDate() time.Time {
+	regex := *regexp.MustCompile(`(\d+)(\w+)`)
+	res := regex.FindAllStringSubmatch(cfg.Duration, -1)
+
+	log.Println(cfg.Duration, res)
+	durationNum, _ := strconv.Atoi(res[0][1])
+	durationType := res[0][2]
+
+	startdate := cfg.ParsedStartDate()
+
+	if durationType == "year" || durationType == "years" {
+		lastday := startdate.AddDate(durationNum, 0, 0).Add(time.Nanosecond * -1)
+		return lastday
+	}
+
+	if durationType == "month" || durationType == "months" {
+		lastday := startdate.AddDate(0, durationNum, 0).Add(time.Nanosecond * -1)
+		return lastday
+	}
+
+	if durationType == "week" || durationType == "weeks" {
+		lastday := startdate.AddDate(0, 0, durationNum*7).Add(time.Nanosecond * -1)
+		return lastday
+	}
+
+	if cfg.Duration != "" {
+		log.Fatalf("Could not parse duration: %s", cfg.Duration)
+	}
+
+	return startdate.AddDate(0, 0, 1).Add(time.Nanosecond * -1)
 }
