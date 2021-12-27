@@ -1,8 +1,6 @@
 package compose
 
 import (
-	"log"
-
 	"github.com/kudrykv/latex-yearly-planner/app/components/cal"
 	"github.com/kudrykv/latex-yearly-planner/app/components/header"
 	"github.com/kudrykv/latex-yearly-planner/app/components/page"
@@ -10,6 +8,7 @@ import (
 )
 
 var Daily = DailyStuff("", "")
+var DailyPlan = DailyStuff("Plan", "Plan")
 var DailyReflect = DailyStuff("Reflect", "Reflect")
 var DailyNotes = DailyStuff("More", "Notes")
 
@@ -22,7 +21,6 @@ func PageHeader(leaf string) header.Items {
 func DailyStuff(prefix, leaf string) func(cfg config.Config, tpls []string) (page.Modules, error) {
 	return func(cfg config.Config, tpls []string) (page.Modules, error) {
 		year := cal.NewYear(cfg.WeekStart, cfg.Year)
-		log.Println("DurationDays", cfg.DurationDays())
 		modules := make(page.Modules, 0, cfg.DurationDays())
 
 		for _, quarter := range year.Quarters {

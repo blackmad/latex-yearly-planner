@@ -66,3 +66,8 @@ pages:
       - funcname: daily_reflect
         tpls:
           - breadcrumb_06_daily_reflect.tpl
+  - name: daily_plan
+    renderblocks:
+      - funcname: daily_plan
+        tpls:
+          - breadcrumb_10_daily_plan.tpl
