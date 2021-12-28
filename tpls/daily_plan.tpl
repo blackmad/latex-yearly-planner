@@ -1,24 +1,11 @@
-\myUnderline{Today I am open to the possibility of ...}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionFull{Today I am open to the possibility of ...}
 
-\myUnderline{What I love about my work is ...}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionFull{What I love about my work is ...}
 
-\myUnderline{Today I am inspired to take these actions 1/2/3}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionFull{Today I am inspired to take these actions 1/2/3}
 
-\myUnderline{What am I grateful for today?}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionFull{What am I grateful for today?}
 
-\myUnderline{I am looking forward to ...}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionFull{I am looking forward to ...}
 
-\myUnderline{Todos and Priorities}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
-
+\myUnderlinedSectionFull{Todos and Priorities}

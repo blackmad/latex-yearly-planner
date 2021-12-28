@@ -4,7 +4,7 @@ dotted: true
 calafterschedule: false
 addlasthalfhour: true
 startdate: weekstart
-duration: 1month
+duration: 1day
 
 layout:
   paper:
@@ -57,33 +57,17 @@ layout:
     dailyspring: \textcolor{white}{.}
 
   colors:
-    gray: gray
+    gray: primaryTextColor
     lightgray: gray!50
+    backgroundhighlight: E8C899
+    textcolor: E3A952
 
 defaultheader: breadcrumb_header.tpl
 
 pages:
-  - name: Title Page
-    funcname: title
-    template: title.tpl
   - name: Month Plan
     funcname: monthly
     template: monthly_plan.tpl
-  - name: Month Calendar
-    funcname: monthly
-    template: monthly_calendar.tpl
-  - name: Weekly Reflect
-    funcname: weekly
-    template: weekly_reflect.tpl
-  - name: Weekly Plan
-    funcname: weekly
-    template: weekly_plan.tpl
-  - name: Daily Plan
-    funcname: daily
-    template: daily_plan.tpl
-  - name: Daily Reflection
-    funcname: daily
-    template: daily_reflect.tpl
 
   # - name: daily_plan
   #   renderblocks:

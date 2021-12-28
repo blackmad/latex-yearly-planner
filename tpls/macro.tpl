@@ -62,6 +62,9 @@
 \newcommand{\myColorGray}{ {{- .Cfg.Layout.Colors.Gray -}} }
 \newcommand{\myColorLightGray}{ {{- .Cfg.Layout.Colors.LightGray -}} }
 
+\definecolor{backgroundHighlight}{HTML}{ {{- .Cfg.Layout.Colors.BackgroundHighlight -}} }
+\definecolor{primaryTextColor}{HTML}{ {{- .Cfg.Layout.Colors.TextColor -}} }
+
 \newcommand{\myLinePlain}{\hrule width \linewidth height \myLenLineThicknessDefault}
 \newcommand{\myLineThick}{\hrule width \linewidth height \myLenLineThicknessThick}
 
@@ -78,8 +81,13 @@
 
 \newcommand{\myDotGrid}[2]{\leavevmode\multido{\dC=0mm+5mm}{#1}{\multido{\dR=0mm+5mm}{#2}{\put(\dR,\dC){\circle*{0.1}}}}}
 
+
+\newcommand{\myMashWithoutSkip}[3][]{
+  {{- if $.Cfg.Dotted -}} \myDotGrid{#2}{#3} {{- else -}} \Repeat{#2}{\myLineGrayVskipTop} {{- end -}}
+}
+
 \newcommand{\myMash}[3][]{
-  {{- if $.Cfg.Dotted -}} \vskip\myLenLineHeightButLine#1\myDotGrid{#2}{#3} {{- else -}} \Repeat{#2}{\myLineGrayVskipTop} {{- end -}}
+  {{- if $.Cfg.Dotted -}} \vskip\myLenLineHeightButLine#1\myDotGrid{#2}{#3} {{- else -}} \Repeat{#2}{\myLineGrayVskipTop} {{- end -}}  
 }
 
 \newcommand{\remainingHeight}{%
@@ -88,4 +96,53 @@
   \else
   \dimexpr\pagegoal-\pagetotal-\lineskip-9.4pt\relax
   \fi%
+}
+
+\newcommand{\myUnderlinedSection}[2]{
+\myUnderline{#1}
+\myMash{\myNumDailyDiaryGrateful}{#2}
+\medskip
+}
+
+\newcommand{\myUnderlinedLinedSectionBoxed}[1]{
+\begin{tcolorbox}[
+  colback=backgroundHighlight
+]
+\myUnderlinedSection{#1}{\numexpr\myNumDotWidthFull-5}
+\end{tcolorbox}
+
+}
+
+\newcommand{\myUnderlinedSectionBoxed}[1]{
+\begin{tcolorbox}[
+  colback=backgroundHighlight,
+  add to natural height=2cm
+]
+\myUnderline{#1}
+\end{tcolorbox}
+}
+
+\newcommand{\myUnderlinedSectionFull}[1]{
+  myUnderlinedSection{#1}{\myNumDotWidthFull}
+}
+
+\newcommand{\myColoredTitleLinedSectionBoxed}[1]{
+\begin{tcolorbox}[
+  boxrule=0pt,
+  frame hidden,
+  colback=white,
+]
+  \begin{tcolorbox}[
+    colback=backgroundHighlight,
+    size=fbox,
+    boxrule=0mm,
+    hbox
+  ]
+  #1
+  \end{tcolorbox}
+  \vspace{1mm}
+  \hspace*{-5mm}\myMashWithoutSkip{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
+  \medskip
+\end{tcolorbox}
+
 }

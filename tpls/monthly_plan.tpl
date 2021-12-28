@@ -1,10 +1,9 @@
-\myUnderline{This month’s positive self talk}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
 
-\myUnderline{This month’s focus}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedLinedSectionBoxed{Todos and Priorities}
+
+\myUnderlinedSectionBoxed{This month’s positive self talk}
+
+\myColoredTitleLinedSectionBoxed{This month's focus}
 
 \myUnderline{Personal goals}
 \myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}

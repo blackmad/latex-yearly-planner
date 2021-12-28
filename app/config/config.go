@@ -65,8 +65,10 @@ type RenderBlock struct {
 }
 
 type Colors struct {
-	Gray      string
-	LightGray string
+	Gray                string
+	LightGray           string
+	BackgroundHighlight string
+	TextColor           string
 }
 
 type Layout struct {
@@ -196,6 +198,11 @@ func (cfg Config) EndDate() time.Time {
 
 	if durationType == "week" || durationType == "weeks" {
 		lastday := startdate.AddDate(0, 0, durationNum*7).Add(time.Nanosecond * -1)
+		return lastday
+	}
+
+	if durationType == "day" || durationType == "days" {
+		lastday := startdate.AddDate(0, 0, durationNum).Add(time.Nanosecond * -1)
 		return lastday
 	}
 

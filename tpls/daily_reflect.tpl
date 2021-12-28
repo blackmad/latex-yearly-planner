@@ -1,28 +1,15 @@
-\myUnderline{What have I learned today?}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionFull{What have I learned today?}
 
-\myUnderline{How was my mindset today?}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionFull{How was my mindset today?}
 
-\myUnderline{What am I grateful for today?}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionFull{What am I grateful for today?}
 
-\myUnderline{Where do I need to be kinder to myself?}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionFull{Where do I need to be kinder to myself?}
 
-\myUnderline{What is a challenging situtation I am learning from?}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionFull{What is a challenging situtation I am learning from?}
 
-\myUnderline{Highlights?}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionFull{Highlights?}
 
-\myUnderline{I was at my best when ...}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionFull{I was at my best when ...}
+
 

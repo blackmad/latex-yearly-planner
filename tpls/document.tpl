@@ -23,6 +23,7 @@
 \usepackage{marginnote}
 \usepackage{adjustbox}
 \usepackage{multido}
+\usepackage[most]{tcolorbox}
 
 \hypersetup{
     {{- if not .Cfg.Debug.ShowLinks}}hidelinks=true{{end -}}
