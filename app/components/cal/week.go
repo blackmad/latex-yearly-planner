@@ -151,7 +151,7 @@ func (w *Week) Breadcrumb() string {
 		header.NewIntItem(w.Year.Number),
 		w.QuartersBreadcrumb(),
 		w.MonthsBreadcrumb(),
-		header.NewTextItem("Week " + strconv.Itoa(w.weekNumber())).RefText(w.ref()).Ref(true),
+		header.NewTextItem("Week " + strconv.Itoa(w.weekNumber()+1)).RefText(w.ref()).Ref(true),
 	}.Table(true)
 }
 

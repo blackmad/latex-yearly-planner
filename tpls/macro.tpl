@@ -111,9 +111,9 @@
   \fi%
 }
 
-\newcommand{\myUnderlinedSection}[2]{
-\myUnderlineInBox{#1}
-\myMash{\myNumDailyDiaryGrateful}{#2}
+\newcommand{\myUnderlinedSection}[3]{
+\myUnderlineInBox{#2}
+\myMash{#1}{#3}
 \medskip
 }
 
@@ -121,7 +121,7 @@
 \begin{tcolorbox}[
   colback=backgroundHighlight
 ]
-\myUnderlinedSection{#1}{\numexpr\myNumDotWidthFull-5}
+\myUnderlinedSection{\myNumDailyDiaryGrateful}{#1}{\numexpr\myNumDotWidthFull-5}
 \end{tcolorbox}
 
 }
@@ -145,8 +145,10 @@
 \end{tcolorbox}
 }
 
-\newcommand{\myUnderlinedSectionFull}[1]{
-  \myUnderlinedSection{#1}{\myNumDotWidthFull}
+\newcommand{\myUnderlinedSectionFull}[2]{
+  \myUnderline{#2}
+  \myMash{#1}{\myNumDotWidthFull}
+  \medskip
 }
 
 
@@ -203,7 +205,7 @@
     #1
   \end{tcolorbox}
   \vspace{3mm}
-  \hspace*{-5mm}\myMashWithoutSkip{#2}{\myNumDotWidthFull}
+  \hspace{-5mm}\myMashWithoutSkip{#2}{\myNumDotWidthFull}
   \medskip
 \end{tcolorbox}
 }

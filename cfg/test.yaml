@@ -65,12 +65,19 @@ layout:
 defaultheader: breadcrumb_header.tpl
 
 pages:
+  - name: Weekly Reflect
+    funcname: weekly
+    template: weekly_reflect.tpl
+  - name: Weekly Plan
+    funcname: weekly
+    template: weekly_plan.tpl
   - name: Month Plan
     funcname: monthly
     template: monthly_plan.tpl
   - name: Month Calendar
     funcname: monthly
     template: monthly_calendar.tpl
+
 
   # - name: daily_plan
   #   renderblocks:

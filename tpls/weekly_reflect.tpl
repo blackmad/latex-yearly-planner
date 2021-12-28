@@ -1,28 +1,13 @@
-\myUnderline{What have I learned today?}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionFull{4}{What projects have I completed this week?}
 
-\myUnderline{How was my mindset today?}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionFull{4}{What’s going well and why?}
 
-\myUnderline{What am I grateful for today?}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionFull{4}{What’s one thing I can do next week that will create the biggest results in my life?}
 
-\myUnderline{Where do I need to be kinder to myself?}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionFull{4}{How am I using my time? How can I prioritize better?}
 
-\myUnderline{What is a challenging situtation I am learning from?}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionFull{4}{What’s most challenging and how can I turn it into an oppportunity?}
 
-\myUnderline{Highlights?}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionFull{4}{What were my favorite moments from this week?}
 
-\myUnderline{I was at my best when ...}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
 
