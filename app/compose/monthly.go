@@ -32,7 +32,7 @@ func Monthly(cfg config.Config, name string, template string, dailyDay DailyDay)
 			"HeadingMOS":   month.HeadingMOS(),
 			"SideQuarters": year.SideQuarters(quarter.Number),
 			"SideMonths":   year.SideMonths(month.Month),
-			"Extra":        month.PrevNext().WithTopRightCorner(cfg.ClearTopRightCorner),
+			"Extra":        PageHeader(name),
 			"Extra2":       extra2(cfg.ClearTopRightCorner, false, false, nil, 0),
 		},
 	})
