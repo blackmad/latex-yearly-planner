@@ -26,7 +26,7 @@ func Weekly(cfg config.Config, name string, template string, dailyDay DailyDay) 
 			"HeadingMOS":   week.HeadingMOS(),
 			"SideQuarters": year.SideQuarters(week.Quarters.Numbers()...),
 			"SideMonths":   year.SideMonths(week.Months.Months()...),
-			"Extra":        week.PrevNext().WithTopRightCorner(cfg.ClearTopRightCorner),
+			"Extra":        week.Extra().WithTopRightCorner(cfg.ClearTopRightCorner),
 			"Extra2":       extra2(cfg.ClearTopRightCorner, false, false, nil, 0),
 		},
 	})

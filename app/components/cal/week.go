@@ -146,12 +146,18 @@ func (w *Week) weekNumber() int {
 	return wn
 }
 
+func (w *Week) Extra() header.Items {
+	return header.Items{
+		header.NewTextItem("Week " + strconv.Itoa(w.weekNumber())).RefText(w.ref()).Ref(true),
+	}
+}
+
 func (w *Week) Breadcrumb() string {
 	return header.Items{
 		header.NewIntItem(w.Year.Number),
 		w.QuartersBreadcrumb(),
 		w.MonthsBreadcrumb(),
-		header.NewTextItem("Week " + strconv.Itoa(w.weekNumber()+1)).RefText(w.ref()).Ref(true),
+		header.NewTextItem("Week " + strconv.Itoa(w.weekNumber())).RefText(w.ref()).Ref(true),
 	}.Table(true)
 }
 
