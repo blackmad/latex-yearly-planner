@@ -123,6 +123,7 @@ func action(c *cli.Context) error {
 
 					fullTemplate := HeaderTemplateLine + "\n" + BodyTemplateLine + "\n\\newpage" + "\n"
 
+					fmt.Println(mod[i].Body)
 					if err = t.ExecuteContents(wr, fullTemplate, mod[i]); err != nil {
 						return fmt.Errorf("execute %s on %s: %w", block.FuncName, fullTemplate, err)
 					}

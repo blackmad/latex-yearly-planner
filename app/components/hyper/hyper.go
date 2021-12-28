@@ -1,9 +1,9 @@
 package hyper
 
 func Target(ref, text string) string {
-	return "\\hypertarget{" + ref + "}{" + text + "}"
+	return ""
 }
 
 func Link(ref, text string) string {
-	return "\\hyperlink{" + ref + "}{" + text + "}"
+	return text
 }

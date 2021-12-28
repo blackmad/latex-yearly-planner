@@ -25,7 +25,7 @@ func (d Day) Day(today, large interface{}) string {
 	day := strconv.Itoa(d.Time.Day())
 
 	if larg, _ := large.(bool); larg {
-		return `\hyperlink{` + d.ref() + `}{\begin{tabular}{@{}p{5mm}@{}|}\hfil{}` + day + `\\ \hline\end{tabular}}`
+		return `\begin{tabular}{@{}p{5mm}@{}|}\hfil{}` + day + `\\ \hline\end{tabular}`
 	}
 
 	if td, ok := today.(Day); ok {

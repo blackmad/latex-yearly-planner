@@ -3,6 +3,7 @@ package compose
 import (
 	"fmt"
 
+	"github.com/kudrykv/latex-yearly-planner/app/components/cal"
 	"github.com/kudrykv/latex-yearly-planner/app/components/page"
 	"github.com/kudrykv/latex-yearly-planner/app/config"
 )
@@ -14,11 +15,24 @@ func Monthly(cfg config.Config, name string, template string, dailyDay DailyDay)
 		// TOOD make this work for multiple months again
 	}
 
+	day := dailyDay.Day
 	year := dailyDay.Year
 	month := dailyDay.Month
 	quarter := dailyDay.Quarter
 
 	modules := make(page.Modules, 0, 1)
+
+	// calculate all the weeks!
+	weeks := make(cal.Weeks, 0)
+	currentDate := day.Time
+
+	for i := 0; i < 5; i++ {
+		day := cal.Day{Time: currentDate}
+		weeks = append(weeks, cal.FillWeekly(cfg.WeekStart, year, day))
+		currentDate = currentDate.AddDate(0, 0, 7)
+	}
+
+	cfg.ParsedStartDate()
 
 	modules = append(modules, page.Module{
 		Cfg:                    cfg,
@@ -34,6 +48,8 @@ func Monthly(cfg config.Config, name string, template string, dailyDay DailyDay)
 			"SideMonths":   year.SideMonths(month.Month),
 			"Extra":        PageHeader(name),
 			"Extra2":       extra2(cfg.ClearTopRightCorner, false, false, nil, 0),
+			"Weeks":        weeks,
+			"Test":         "wtf",
 		},
 	})
 

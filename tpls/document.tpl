@@ -1,4 +1,4 @@
-\documentclass[9pt]{extarticle}
+\documentclass[9pt]{exam}
 
 \usepackage{geometry}
 \usepackage[table]{xcolor}
@@ -31,16 +31,6 @@
 \usepackage{enumitem,amssymb}
 \newlist{todolist}{itemize}{2}
 \setlist[todolist]{label=$\square$}
-
-\newdimen\longline
-\longline=\textwidth\advance\longline-4cm
-
-\def\LayoutTextField#1#2{#2} % override default in hyperref
-
-\def\lbl#1{\hbox to 4cm{#1\dotfill\strut}}%
-\def\labelline#1#2{\lbl{#1}\vbox{\hbox{\TextField[name=#1,width=#2,borderwidth=0]{\null}}\kern0pt\hrule}}
-\def\q#1{\hbox to \hsize{\labelline{#1}{\longline}}\vskip1.4ex}
-
 
 \hypersetup{
     {{- if not .Cfg.Debug.ShowLinks}}hidelinks=true{{end -}}

@@ -38,7 +38,7 @@ layout:
     notesindexpages: 3
     notesonpage: 35
     dotheightfull: 36
-    dotwidthfull: 30
+    dotwidthfull: 28
     dotwidthtwothirds: 20
 
   lengths:
@@ -68,6 +68,9 @@ pages:
   - name: Month Plan
     funcname: monthly
     template: monthly_plan.tpl
+  - name: Month Calendar
+    funcname: monthly
+    template: monthly_calendar.tpl
 
   # - name: daily_plan
   #   renderblocks:

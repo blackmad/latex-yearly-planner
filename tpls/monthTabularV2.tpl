@@ -6,7 +6,7 @@
   {{ .Month.MaybeName .Large }}
   {{ if $.Large -}} \hline {{- end }}
   {{ .Month.WeekHeader .Large }} \\ {{ if .Large -}} \noalign{\hrule height \myLenLineThicknessThick} {{- else -}} \hline {{- end}}
-  {{- range $i, $week := .Month.Weeks }}
+  {{- range $i, $week := .Weeks }}
   {{$week.WeekNumber $.Large}} &
     {{- range $j, $day := $week.Days -}}
       {{- $day.Day $.Today $.Large -}}

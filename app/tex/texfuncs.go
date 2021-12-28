@@ -13,11 +13,11 @@ func TextColor(color, text string) string {
 }
 
 func Hyperlink(ref, text string) string {
-	return fmt.Sprintf(`\hyperlink{%s}{%s}`, ref, text)
+	return text
 }
 
 func Hypertarget(ref, text string) string {
-	return fmt.Sprintf(`\hypertarget{%s}{%s}`, ref, text)
+	return ""
 }
 
 func Tabular(format, text string) string {

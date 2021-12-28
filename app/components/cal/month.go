@@ -112,7 +112,7 @@ func (m *Month) Breadcrumb() string {
 	return header.Items{
 		header.NewIntItem(m.Year.Number),
 		header.NewTextItem("Q" + strconv.Itoa(m.Quarter.Number)),
-		header.NewMonthItem(m.Month).Ref(),
+		header.NewMonthItem(m.Month),
 	}.Table(true)
 }
 

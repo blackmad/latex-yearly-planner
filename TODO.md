@@ -1,6 +1,18 @@
-- make it wrap around year correctly
-- figure out why month isn't working
-- be happy with all the content
-- make the content a little less samey / columns / etc
+MONTH
 
-- make months work for multi-month books
+DONE- make month calendar work for the right weeks
+DONE - make the notes section not be terrible
+
+- fix month header
+- display the correct number of weeks
+
+WEEK
+
+- why is the heading weird in week 51?
+- add in actual questions
+
+DAY
+
+- pretty up questions / sections
+- fix headings
+- anything else I really want there?

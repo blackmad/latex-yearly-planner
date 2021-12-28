@@ -71,9 +71,14 @@
 \renewcommand{\ULdepth}{1.8pt}
 \contourlength{0.8pt}
 
-\newcommand{\myUnderline}[1]{%
+\newcommand{\myUnderlineInBox}[1]{%
   \uline{\phantom{#1}}%
   \llap{\contour{backgroundHighlight}{#1}}%
+}
+
+\newcommand{\myUnderline}[1]{%
+  \uline{\phantom{#1}}%
+  \llap{\contour{white}{#1}}%
 }
 
 \newcommand{\myLineHeightButLine}{\myMinLineHeight{\myLenLineHeightButLine}}
@@ -107,7 +112,7 @@
 }
 
 \newcommand{\myUnderlinedSection}[2]{
-\myUnderline{#1}
+\myUnderlineInBox{#1}
 \myMash{\myNumDailyDiaryGrateful}{#2}
 \medskip
 }
@@ -126,7 +131,7 @@
   colback=backgroundHighlight,
   height=3cm,
 ]
-\myUnderline{#1}
+\myUnderlineInBox{#1}
 \end{tcolorbox}
 }
 
@@ -162,8 +167,6 @@
     colback=backgroundHighlight,
     title=#1
   ]
-    % \myUnderline{#1}
-    % \vspace{3mm}
     \begin{enumerate}
       \item \arulefill
       \item \arulefill

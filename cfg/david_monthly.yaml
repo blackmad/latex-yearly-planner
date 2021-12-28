@@ -59,6 +59,8 @@ layout:
   colors:
     gray: gray
     lightgray: gray!50
+    backgroundhighlight: E8C899
+    textcolor: E3A952
 
 defaultheader: breadcrumb_header.tpl
 
