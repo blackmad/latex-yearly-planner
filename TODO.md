@@ -2,17 +2,17 @@ MONTH
 
 DONE- make month calendar work for the right weeks
 DONE - make the notes section not be terrible
+DONE - fix month header
 
-- fix month header
-- display the correct number of weeks
+- display the correct number of weeks for a given month
 
 WEEK
 
-- why is the heading weird in week 51?
-- add in actual questions
+DONE - why is the heading weird in week 51?
+DONE - add in actual questions
 
 DAY
 
+- get day in the header
+- get monthly reflection working
 - pretty up questions / sections
-- fix headings
-- anything else I really want there?

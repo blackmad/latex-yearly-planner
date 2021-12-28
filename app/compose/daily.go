@@ -42,7 +42,7 @@ func Daily(cfg config.Config, name string, template string, dailyDay DailyDay) (
 			"Month":        month,
 			"Week":         week,
 			"Day":          day,
-			"Breadcrumb":   day.Breadcrumb(prefix, "", cfg.ClearTopRightCorner && len(name) > 0),
+			"Breadcrumb":   day.Breadcrumb(prefix, "", true),
 			"HeadingMOS":   day.HeadingMOS(prefix, name),
 			"SideQuarters": year.SideQuarters(day.Quarter()),
 			"SideMonths":   year.SideMonths(day.Month()),

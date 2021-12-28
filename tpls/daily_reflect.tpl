@@ -1,15 +1,15 @@
-\myUnderlinedSectionFull{What have I learned today?}
+\myUnderlinedSectionFull{4}{What have I learned today?}
 
-\myUnderlinedSectionFull{How was my mindset today?}
+\myUnderlinedSectionFull{4}{How was my mindset today?}
 
-\myUnderlinedSectionFull{What am I grateful for today?}
+\myUnderlinedSectionFull{4}{What am I grateful for today?}
 
-\myUnderlinedSectionFull{Where do I need to be kinder to myself?}
+\myUnderlinedSectionFull{4}{Where do I need to be kinder to myself?}
 
-\myUnderlinedSectionFull{What is a challenging situtation I am learning from?}
+\myUnderlinedSectionFull{4}{What is a challenging situtation I am learning from?}
 
-\myUnderlinedSectionFull{Highlights?}
+\myUnderlinedSectionFull{4}{Highlights?}
 
-\myUnderlinedSectionFull{I was at my best when ...}
+\myUnderlinedSectionFull{4}{I was at my best when ...}
 
 

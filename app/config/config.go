@@ -144,8 +144,6 @@ func New(pathConfigs ...string) (Config, error) {
 		cfg.Year = cfg.ParsedStartDate().Year()
 	}
 
-	fmt.Println(cfg)
-
 	return cfg, nil
 }
 

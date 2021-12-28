@@ -65,6 +65,12 @@ layout:
 defaultheader: breadcrumb_header.tpl
 
 pages:
+  - name: Daily Plan
+    funcname: daily
+    template: daily_plan.tpl
+  - name: Daily Reflection
+    funcname: daily
+    template: daily_reflect.tpl
   - name: Weekly Reflect
     funcname: weekly
     template: weekly_reflect.tpl

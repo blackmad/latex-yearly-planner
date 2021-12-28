@@ -8,13 +8,35 @@ import (
 	"github.com/kudrykv/latex-yearly-planner/app/config"
 )
 
-func Monthly(cfg config.Config, name string, template string, dailyDay DailyDay) (page.Modules, error) {
-	fmt.Println("montly", dailyDay.Index)
-	if dailyDay.Index != 0 {
-		return make(page.Modules, 0), nil
-		// TOOD make this work for multiple months again
+func contains(s []string, e string) bool {
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
+}
+
+func MonthlyEnd(cfg config.Config, name string, template string, dailyDay DailyDay) (page.Modules, error) {
+	fmt.Println(dailyDay.Day.Time, cfg.EndDate())
+	if dailyDay.Day.Time.Day() == dailyDay.Month.LastDay() ||
+		dailyDay.Day.Time.Format("2020-01-01") == cfg.EndDate().Format("2020-01-01") {
+		return MonthlyHelper(cfg, name, template, dailyDay)
 	}
 
+	return make(page.Modules, 0), nil
+
+}
+
+func Monthly(cfg config.Config, name string, template string, dailyDay DailyDay) (page.Modules, error) {
+	if dailyDay.Index == 0 || dailyDay.Day.Time.Day() == 1 {
+		return MonthlyHelper(cfg, name, template, dailyDay)
+	}
+	return make(page.Modules, 0), nil
+
+}
+
+func MonthlyHelper(cfg config.Config, name string, template string, dailyDay DailyDay) (page.Modules, error) {
 	day := dailyDay.Day
 	year := dailyDay.Year
 	month := dailyDay.Month
@@ -26,9 +48,20 @@ func Monthly(cfg config.Config, name string, template string, dailyDay DailyDay)
 	weeks := make(cal.Weeks, 0)
 	currentDate := day.Time
 
+	allMonths := []string{}
+
 	for i := 0; i < 5; i++ {
 		day := cal.Day{Time: currentDate}
-		weeks = append(weeks, cal.FillWeekly(cfg.WeekStart, year, day))
+
+		week := cal.FillWeekly(cfg.WeekStart, year, day)
+		weeks = append(weeks, week)
+
+		for _, month := range week.Months {
+			if !contains(allMonths, month.Month.String()) {
+				allMonths = append(allMonths, month.Month.String())
+			}
+		}
+
 		currentDate = currentDate.AddDate(0, 0, 7)
 	}
 
@@ -42,7 +75,7 @@ func Monthly(cfg config.Config, name string, template string, dailyDay DailyDay)
 			"Year":         year,
 			"Quarter":      quarter,
 			"Month":        month,
-			"Breadcrumb":   month.Breadcrumb(),
+			"Breadcrumb":   month.Breadcrumb(allMonths),
 			"HeadingMOS":   month.HeadingMOS(),
 			"SideQuarters": year.SideQuarters(quarter.Number),
 			"SideMonths":   year.SideMonths(month.Month),

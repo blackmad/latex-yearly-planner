@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"os"
 	"strings"
 
@@ -70,13 +69,10 @@ func action(c *cli.Context) error {
 	currentDate := cfg.ParsedStartDate()
 
 	for !currentDate.After(cfg.EndDate()) {
-		log.Println(currentDate)
-
 		for _, block := range cfg.Pages {
 
 			var mom []page.Modules
 			if fn, ok = ComposerMap[block.FuncName]; !ok {
-				fmt.Println((block))
 				return fmt.Errorf("unknown func " + block.FuncName)
 			}
 
@@ -85,7 +81,6 @@ func action(c *cli.Context) error {
 			quarter := cal.NewQuarter(cfg.WeekStart, year, int(day.Month())/3)
 			month := cal.NewMonth(cfg.WeekStart, year, quarter, day.Month())
 
-			log.Println("block name:", block.Name)
 			modules, err := fn(cfg, block.Name, block.Template, compose.DailyDay{
 				Day:     &day,
 				Month:   month,
@@ -113,8 +108,7 @@ func action(c *cli.Context) error {
 			}
 
 			for i := 0; i < allLen; i++ {
-				for j, mod := range mom {
-					log.Println("one page", j, i)
+				for _, mod := range mom {
 					HeaderTemplateLine := ""
 					if mod[i].HeaderTemplateFilename != "" {
 						HeaderTemplateLine = `{{ template "` + mod[i].HeaderTemplateFilename + `" dict "Cfg" .Cfg "Body" .Body }}`
@@ -123,7 +117,6 @@ func action(c *cli.Context) error {
 
 					fullTemplate := HeaderTemplateLine + "\n" + BodyTemplateLine + "\n\\newpage" + "\n"
 
-					fmt.Println(mod[i].Body)
 					if err = t.ExecuteContents(wr, fullTemplate, mod[i]); err != nil {
 						return fmt.Errorf("execute %s on %s: %w", block.FuncName, fullTemplate, err)
 					}
@@ -163,8 +156,9 @@ var ComposerMap = map[string]Composer{
 	"title": compose.Title,
 	// "annual":        compose.Annual,
 	// "quarterly":     compose.Quarterly,
-	"monthly": compose.Monthly,
-	"weekly":  compose.Weekly,
-	"daily":   compose.Daily,
+	"monthly_end": compose.MonthlyEnd,
+	"monthly":     compose.Monthly,
+	"weekly":      compose.Weekly,
+	"daily":       compose.Daily,
 	// "notes_indexed": compose.NotesIndexed,
 }

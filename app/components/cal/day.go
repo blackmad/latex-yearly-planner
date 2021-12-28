@@ -76,9 +76,9 @@ func (d Day) Breadcrumb(prefix string, leaf string, shorten bool) string {
 	}
 
 	if len(leaf) > 0 {
-		items = append(items, dayItem, header.NewTextItem(leaf).RefText(prefix+d.ref()).Ref(true))
+		items = append(items, dayItem, header.NewTextItem(leaf))
 	} else {
-		items = append(items, dayItem.Ref(true))
+		items = append(items, dayItem)
 	}
 
 	return items.Table(true)

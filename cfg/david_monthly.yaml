@@ -86,6 +86,9 @@ pages:
   - name: Daily Reflection
     funcname: daily
     template: daily_reflect.tpl
+  - name: Monthly Reflection
+    funcname: monthly_end
+    template: monthly_reflect.tpl
 
   # - name: daily_plan
   #   renderblocks:

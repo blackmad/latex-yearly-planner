@@ -96,7 +96,7 @@ func FillWeekly(wd time.Weekday, year *Year, ptr Day) *Week {
 		week.Quarters = append(week.Quarters, qrtr)
 	}
 
-	if week.monthOverlap() {
+	if week.MonthOverlap() {
 		month = NewMonth(wd, year, qrtr, week.rightMonth())
 		week.Months = append(week.Months, month)
 	}
@@ -148,7 +148,7 @@ func (w *Week) weekNumber() int {
 
 func (w *Week) Extra() header.Items {
 	return header.Items{
-		header.NewTextItem("Week " + strconv.Itoa(w.weekNumber())).RefText(w.ref()).Ref(true),
+		header.NewTextItem("Week " + strconv.Itoa(w.weekNumber())),
 	}
 }
 
@@ -161,7 +161,7 @@ func (w *Week) Breadcrumb() string {
 	}.Table(true)
 }
 
-func (w *Week) monthOverlap() bool {
+func (w *Week) MonthOverlap() bool {
 	return w.Days[0].Time.Month() != w.Days[6].Time.Month()
 }
 

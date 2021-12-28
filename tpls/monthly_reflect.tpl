@@ -1,24 +1,16 @@
-\myUnderline{Today I am open to the possibility of ...}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
 
-\myUnderline{What I love about my work is ...}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedLinedSectionBoxed{Describe this month in 3 words}
 
-\myUnderline{Today I am inspired to take these actions 1/2/3}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\begin{minipage}{0.49\textwidth}
+\myUnderlinedSectionBoxed{This month’s highs}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\textwidth}
+\myUnderlinedSectionBoxed{This month’s lows}
+\end{minipage}
 
-\myUnderline{What am I grateful for today?}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionNumberedList{This month I learned ...}
 
-\myUnderline{I am looking forward to ...}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionNumberedList{This month I was grateful for ...}
 
-\myUnderline{Todos and Priorities}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
-
+\myUnderlinedSectionBoxedTwo{Next month I'd like to improve ...}

@@ -108,11 +108,17 @@ func (m *Month) EndTable(typ interface{}) string {
 	return `\end{tabular}`
 }
 
-func (m *Month) Breadcrumb() string {
+func (m *Month) Breadcrumb(months []string) string {
+	group := header.ItemsGroup{}.Delim(" / ")
+
+	for _, m := range months {
+		group.Items = append(group.Items, header.NewTextItem(m))
+	}
+
 	return header.Items{
 		header.NewIntItem(m.Year.Number),
 		header.NewTextItem("Q" + strconv.Itoa(m.Quarter.Number)),
-		header.NewMonthItem(m.Month),
+		group,
 	}.Table(true)
 }
 
@@ -138,4 +144,10 @@ func (m *Month) HeadingMOS() string {
 	return `\begin{tabular}{@{}l}
   \resizebox{!}{\myLenHeaderResizeBox}{` + hyper.Target(m.Month.String(), m.Month.String()) + `\myDummyQ}
 \end{tabular}`
+}
+
+func (m *Month) LastDay() int {
+	firstOfMonth := time.Date(m.Year.Number, m.Month, 1, 0, 0, 0, 0, time.Local)
+	lastOfMonth := firstOfMonth.AddDate(0, 1, -1)
+	return lastOfMonth.Day()
 }
