@@ -68,8 +68,16 @@
 \newcommand{\myLinePlain}{\hrule width \linewidth height \myLenLineThicknessDefault}
 \newcommand{\myLineThick}{\hrule width \linewidth height \myLenLineThicknessThick}
 
+\renewcommand{\ULdepth}{1.8pt}
+\contourlength{0.8pt}
+
+\newcommand{\myUnderline}[1]{%
+  \uline{\phantom{#1}}%
+  \llap{\contour{backgroundHighlight}{#1}}%
+}
+
 \newcommand{\myLineHeightButLine}{\myMinLineHeight{\myLenLineHeightButLine}}
-\newcommand{\myUnderline}[1]{#1\vskip1mm\myLineThick\par}
+%\newcommand{\myUnderline}[1]{#1\vskip1mm\myLineThick\par}
 \newcommand{\myLineColor}[1]{\textcolor{#1}{\myLinePlain}}
 \newcommand{\myLineGray}{\myLineColor{\myColorGray}}
 \newcommand{\myLineLightGray}{\myLineColor{\myColorLightGray}}
@@ -116,17 +124,68 @@
 \newcommand{\myUnderlinedSectionBoxed}[1]{
 \begin{tcolorbox}[
   colback=backgroundHighlight,
-  add to natural height=2cm
+  height=3cm,
 ]
 \myUnderline{#1}
 \end{tcolorbox}
 }
 
-\newcommand{\myUnderlinedSectionFull}[1]{
-  myUnderlinedSection{#1}{\myNumDotWidthFull}
+\newcommand{\myUnderlinedSectionBoxedTwo}[1]{
+\begin{tcolorbox}[
+  colback=backgroundHighlight,
+  height=3cm,
+]
+  #1
+  \tcblower
+\end{tcolorbox}
 }
 
-\newcommand{\myColoredTitleLinedSectionBoxed}[1]{
+\newcommand{\myUnderlinedSectionFull}[1]{
+  \myUnderlinedSection{#1}{\myNumDotWidthFull}
+}
+
+
+\newcommand{\arulefill}{%
+  \phantom{a}\xrfill[-1ex]{0.4pt}[black]\phantom{a}
+}
+
+\makeatletter
+\def\lowerdotfill{%
+  \phantom{a}\leavevmode
+  \cleaders \hb@xt@ .44em{\hss\lower0.5ex\hbox{.}\hss}\hfill
+  \kern\z@\phantom{a}
+  }
+\makeatother
+
+\newcommand{\myUnderlinedSectionNumberedList}[1]{
+  \begin{tcolorbox}[
+    colback=backgroundHighlight,
+    title=#1
+  ]
+    % \myUnderline{#1}
+    % \vspace{3mm}
+    \begin{enumerate}
+      \item \arulefill
+      \item \arulefill
+      \item \arulefill
+    \end{enumerate}
+  \end{tcolorbox}
+}
+
+
+\newcommand{\myUnderlinedSectionTodoList}[1]{
+  \begin{tcolorbox}[
+    colback=backgroundHighlight,
+    title=#1
+  ]
+    \begin{todolist}
+      \item \arulefill
+      \item \arulefill
+    \end{todolist}
+  \end{tcolorbox}
+}
+
+\newcommand{\myColoredTitleLinedSectionBoxed}[2]{
 \begin{tcolorbox}[
   boxrule=0pt,
   frame hidden,
@@ -138,11 +197,11 @@
     boxrule=0mm,
     hbox
   ]
-  #1
+    #1
   \end{tcolorbox}
-  \vspace{1mm}
-  \hspace*{-5mm}\myMashWithoutSkip{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
+  \vspace{3mm}
+  \hspace*{-5mm}\myMashWithoutSkip{#2}{\myNumDotWidthFull}
   \medskip
 \end{tcolorbox}
-
 }
+

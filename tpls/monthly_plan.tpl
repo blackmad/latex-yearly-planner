@@ -1,22 +1,16 @@
 
 \myUnderlinedLinedSectionBoxed{Todos and Priorities}
 
+\begin{minipage}{0.49\textwidth}
 \myUnderlinedSectionBoxed{This month’s positive self talk}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\textwidth}
+\myUnderlinedSectionBoxed{This month's focus}
+\end{minipage}
 
-\myColoredTitleLinedSectionBoxed{This month's focus}
+\myUnderlinedSectionNumberedList{Personal goals}
 
-\myUnderline{Personal goals}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionNumberedList{Professional goals}
 
-\myUnderline{Professional goals}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
-
-\myUnderline{This month I’m most excited about...}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
-
-\myUnderline{Happy and inspiring things I will do}
-\myMash{\myNumDailyDiaryGrateful}{\myNumDotWidthFull}
-\medskip
+\myUnderlinedSectionBoxedTwo{This month I’m most excited about...}
