@@ -1,7 +1,7 @@
 \begin{minipage}[t][\remainingHeight]{\myLenTriCol}
 {{- range $j, $month := .Body.Quarter.Months -}}
 {\noindent\renewcommand{\arraystretch}{0}%
-{{- template "monthTabularV2.tpl" dict "Month" $month "TableType" "tabular" -}}
+{{- template "monthTabularV2.gtpl" dict "Month" $month "TableType" "tabular" -}}
 {{- if ne $j 2 -}} \vfill {{- end -}}
 {{- end -}}
 \end{minipage}%

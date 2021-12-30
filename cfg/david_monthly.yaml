@@ -62,36 +62,36 @@ layout:
     backgroundhighlight: E8C899
     textcolor: E3A952
 
-defaultheader: breadcrumb_header.tpl
+defaultheader: breadcrumb_header.gtpl
 
 pages:
   - name: Title Page
     funcname: title
-    template: title.tpl
+    template: title.gtpl
   - name: Month Plan
     funcname: monthly
-    template: monthly_plan.tpl
+    template: monthly_plan.gtpl
   - name: Month Calendar
     funcname: monthly
-    template: monthly_calendar.tpl
+    template: monthly_calendar.gtpl
   - name: Weekly Reflect
     funcname: weekly
-    template: weekly_reflect.tpl
+    template: weekly_reflect.gtpl
   - name: Weekly Plan
     funcname: weekly
-    template: weekly_plan.tpl
+    template: weekly_plan.gtpl
   - name: Daily Plan
     funcname: daily
-    template: daily_plan.tpl
+    template: daily_plan.gtpl
   - name: Daily Reflection
     funcname: daily
-    template: daily_reflect.tpl
+    template: daily_reflect.gtpl
   - name: Monthly Reflection
     funcname: monthly_end
-    template: monthly_reflect.tpl
+    template: monthly_reflect.gtpl
 
   # - name: daily_plan
   #   renderblocks:
   #     - funcname: daily_plan
   #       tpls:
-  #         - breadcrumb_10_daily_plan.tpl
+  #         - breadcrumb_10_daily_plan.gtpl

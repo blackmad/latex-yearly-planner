@@ -1,9 +1,9 @@
-{{- template "monthTabularV2.tpl" dict "Weeks" .Body.Weeks "Month" .Body.Month "Large" true -}}
+{{- template "monthTabularV2.gtpl" dict "Month" .Body.Month "Large" true -}}
 \medskip
-                                                        
+
 {{ if $.Cfg.Dotted -}}
 \myUnderline{Notes}
-\fillwithdottedlines{\stretch{1}}
+\vbox to 0pt{\myMash[\myMonthlySpring]{20}{\myNumDotWidthFull}}
 {{- else -}}
 \parbox{\myLenTwoCol}{
   \myUnderline{Notes}

@@ -1,6 +1,8 @@
 package compose
 
 import (
+	"time"
+
 	"github.com/kudrykv/latex-yearly-planner/app/components/cal"
 	"github.com/kudrykv/latex-yearly-planner/app/components/header"
 	"github.com/kudrykv/latex-yearly-planner/app/components/page"
@@ -42,6 +44,8 @@ func Daily(cfg config.Config, name string, template string, dailyDay DailyDay) (
 			"Month":        month,
 			"Week":         week,
 			"Day":          day,
+			"Weekday":      day.Time.Weekday(),
+			"IsWeekend":    day.Time.Weekday() == time.Saturday || day.Time.Weekday() == time.Sunday,
 			"Breadcrumb":   day.Breadcrumb(prefix, "", true),
 			"HeadingMOS":   day.HeadingMOS(prefix, name),
 			"SideQuarters": year.SideQuarters(day.Quarter()),

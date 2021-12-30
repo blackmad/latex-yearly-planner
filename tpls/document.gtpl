@@ -54,7 +54,7 @@
 
 \begin{document}
 
-{{template "macro.tpl" .}}
+{{template "macro.gtpl" .}}
 
 \include{content}
 \end{document}
