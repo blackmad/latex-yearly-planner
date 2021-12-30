@@ -148,6 +148,10 @@ func (d Day) Month() time.Month {
 	return d.Time.Month()
 }
 
+func (d Day) IsWeekend() bool {
+	return d.Time.Weekday() == time.Saturday || d.Time.Weekday() == time.Sunday
+}
+
 func (d Day) HeadingMOS(prefix, leaf string) string {
 	day := strconv.Itoa(d.Time.Day())
 	if len(leaf) > 0 {

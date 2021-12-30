@@ -1,6 +1,10 @@
 \myUnderlinedSectionFull{4}{Today I am open to the possibility of ...}
 
+{{if .Body.Day.IsWeekend -}}
+\myUnderlinedSectionFull{4}{Today I'm going to recharge by ...}
+{{- else -}}
 \myUnderlinedSectionFull{4}{What I love about my work is ...}
+{{- end}}
 
 \myUnderlinedSectionFull{4}{Today I am inspired to take these actions 1/2/3}
 
