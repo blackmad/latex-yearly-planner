@@ -27,6 +27,7 @@
 \usepackage{xhfill}
 \usepackage{contour}
 \usepackage{ulem}
+\usepackage{tabularray}
 
 \usepackage{enumitem,amssymb}
 \newlist{todolist}{itemize}{2}

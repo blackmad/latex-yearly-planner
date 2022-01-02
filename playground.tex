@@ -1,0 +1,190 @@
+\documentclass{exam}
+\usepackage{multicol}
+ \usepackage{amssymb} 
+  \usepackage{tabularx} 
+
+ \usepackage[most]{tcolorbox}
+ \usepackage{lipsum}
+ 
+ \makeatletter
+ \renewcommand \dotfill {\leavevmode \cleaders \hb@xt@ 2em{\hss .\hss }\hfill \kern \z@}
+ \makeatother
+
+
+\tcbset{
+	colframe=black, colback=white, notitle,
+	equal height group=A,   
+	minimum for equal height group=A:7cm}
+
+	 
+\begin{document}
+	
+	
+
+\tcbset{
+	posterbox/.style={%
+		enhanced jigsaw, size=fbox,
+		colback=#1!10, colframe=#1!10!black,
+		colbacktitle=#1!70!black
+	},
+size=minimal,top=14mm, bottom=4mm, left=14mm, right=4mm,
+}
+
+\begin{tcbposter}[
+	coverage={spread,phantom=\thispagestyle{empty}},
+	poster={columns=3,rows=5,spacing=0mm,showframe=false,spacing=3mm},
+	fontsize=12pt,boxes={top=0mm, bottom=0mm, left=0mm, right=0mm}
+	]
+	
+	\posterbox[title=Todos and priorities]{span=3,row=1,}
+		{\fillwithdottedlines{\tcbtextheight}}
+	
+		\posterbox[title=Todos and priorities2,]{span=3,row=2,}
+		{\fillwithdottedlines{\tcbtextheight}}
+	
+\end{tcbposter}
+
+\newpage
+
+	
+	\begin{tcbposter}[
+		coverage={spread,phantom=\thispagestyle{empty}},
+		poster={columns=3,rows=8,spacing=3mm,showframe=false},
+		fontsize=12pt,
+		]
+		
+		\posterbox[title=Top left box,posterbox=blue]{name=A,column=1,below=top,span=2,rowspan=1}
+		{This is some other text}
+		
+		\posterbox[title=Bottom right box,posterbox=blue]{name=B,column=2,above=bottom,span=2,rowspan=1}
+		{This is some other text
+	}
+		
+		\posterbox[title=Bottom left box,posterbox=green]{name=C,column=1,between=A and bottom}
+		{This is some other text}
+		
+		\posterbox[title=Central box,posterbox=red]{name=D,column=2,between=A and B}
+		{\fillwithdottedlines{\tcbtextheight}}
+		
+		\posterbox[title=Top right box,posterbox=green]{name=E,column=3,between=top and B}
+		{This is some other text}
+		
+	\end{tcbposter}
+
+\newpage
+
+
+	Please justify all your answers to the following questions.
+	\begin{enumerate}
+		\item Is this = that?\hfill 2 points
+		\begin{tcolorbox}
+		\end{tcolorbox}
+		\item Is this = that?\hfill 2 points
+		\begin{tcolorbox}[height fill]
+		\end{tcolorbox}
+	\end{enumerate}
+	
+	%Following line creates a new group with different size
+	\tcbset{equal height group=B, minimum for equal height group=B:3cm}
+	
+	\begin{enumerate}
+		\item Is this = that?\hfill 2 points
+		\begin{tcolorbox}
+		\end{tcolorbox}
+		\item Is this = that?\hfill 2 points
+		\begin{tcolorbox}
+		\end{tcolorbox}
+		\item Is this = that?\hfill 2 points
+		\begin{tcolorbox}
+		\end{tcolorbox}
+		\item Is this = that?\hfill 2 points
+		\begin{tcolorbox}[height fill]
+				\fillwithlines{\tcbtextheight}
+		\end{tcolorbox}
+	\end{enumerate}
+
+	
+	\newpage
+
+\begin{minipage}[s]{\linewidth}
+	one
+	\vfill
+	\end{minipage}
+\begin{minipage}[s]{\linewidth}
+	two
+		\vfill
+\end{minipage}
+
+
+\newpage
+	
+	
+\begin{tcbraster}[raster equal height=rows,
+	raster every box/.style={colframe=red!50!black,colback=red!10!white},
+	height=6in
+]
+	\begin{tcolorbox}[blankest,height fill,raster columns=1]
+		\begin{tcbraster}[raster columns=1,height=5in,raster equal height=rows]
+			\begin{tcolorbox}[height fill=maximum]One\end{tcolorbox}
+				\begin{tcolorbox}[height fill=maximum]raster+tcolorbox+raster\end{tcolorbox}
+					\begin{tcolorbox}[height fill=maximum]raster+tcolorbox+raster\end{tcolorbox}
+		\end{tcbraster}
+	\end{tcolorbox}
+	\begin{tcolorbox}raster+tcolorbox+raster\end{tcolorbox}
+\end{tcbraster}
+
+
+\newpage
+	
+The magic word is \fillin
+
+\checkboxchar{$\Box$}
+
+\begin{questions}
+	\question One of these things is not like the others; one of these
+	things is not the same. Which one is different?
+	\begin{oneparcheckboxes}
+		\choice John
+		\choice Paul
+		\choice George
+		\choice Ringo
+		\CorrectChoice Socrates
+	\end{oneparcheckboxes}
+
+\question
+In no more than one paragraph, explain why the earth is round.
+\makeemptybox{1in}
+
+
+In no more than one paragraph, explain why the earth is round.
+\makeemptybox{\stretch{1}}
+
+What changes to the van Allen radiation belt are needed to make
+the earth into a regular icosahedron?
+\fillwithlines{1in}
+
+\setlength\linefillheight{.5in}
+
+\question What changes to the van Allen radiation belt are needed to make
+the earth into a regular icosahedron?
+\fillwithlines{\stretch{1}}
+
+These are dots
+\fillwithdottedlines{1in}
+
+\begin{multicols}{2}
+	Column 1
+\fillwithlines{\stretch{1}}
+	\columnbreak
+	Column 2
+	\fillwithlines{\stretch{1}}
+\end{multicols}
+
+
+\end{questions}
+
+\newpage
+
+
+
+\end{document}

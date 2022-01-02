@@ -2,6 +2,11 @@
 \cs_new_eq:NN \Repeat \prg_replicate:nn
 \ExplSyntaxOff
 
+ \makeatletter
+ \renewcommand \dotfill {\leavevmode \cleaders \hb@xt@ 1.5em{\hss .\hss }\hfill \kern \z@}
+ 
+ \makeatother
+
 \newcommand{\myMinLineHeight}[1]{\parbox{0pt}{\vskip#1}}
 \newcommand{\myDummyQ}{\textcolor{white}{Q}}
 
@@ -121,7 +126,8 @@
 \begin{tcolorbox}[
   colback=backgroundHighlight
 ]
-\myUnderlinedSection{\myNumDailyDiaryGrateful}{#1}{\numexpr\myNumDotWidthFull-5}
+  \myUnderlineInBox{#1}
+  \fillwithdottedlines{\stretch{1}}
 \end{tcolorbox}
 
 }
@@ -135,19 +141,20 @@
 \end{tcolorbox}
 }
 
-\newcommand{\myUnderlinedSectionBoxedTwo}[1]{
+\newcommand{\myUnderlinedSectionBoxedTwo}[3][\stretch{1}][xxxx]{
 \begin{tcolorbox}[
   colback=backgroundHighlight,
-  height=3cm,
+  height fill
 ]
-  #1
+  \#3
   \tcblower
+  \#2
 \end{tcolorbox}
 }
 
 \newcommand{\myUnderlinedSectionFull}[2]{
   \myUnderline{#2}
-  \myMash{#1}{\myNumDotWidthFull}
+  \fillwithdottedlines{\stretch{1}}
   \medskip
 }
 
@@ -210,3 +217,15 @@
 \end{tcolorbox}
 }
 
+\NewColumnType{Z}[1][]{Q[co=1,h,#1]}
+
+\newcommand{\threeColumnHeadingBox}[1]{
+  \begin{tblr}{
+    colspec = {ZZZ}, colsep = 3mm, rowsep = 3mm, 
+    vlines = {2pt, white},
+    rows = {backgroundHighlight,ht=3cm}
+  }
+    #1
+  \end{tblr}
+  \medskip
+}
