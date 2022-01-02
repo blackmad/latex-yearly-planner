@@ -1,5 +1,12 @@
 \documentclass[9pt]{exam}
 
+\newlength{\mytextsize}
+
+   %This part fails....  (no it doesn't:-)
+   \makeatletter
+      \setlength{\mytextsize}{\f@size pt}
+   \makeatother
+
 \usepackage{geometry}
 \usepackage[table]{xcolor}
 {{if $.Cfg.Debug.ShowFrame}}\usepackage{showframe}{{end}}

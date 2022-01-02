@@ -158,11 +158,6 @@
   \medskip
 }
 
-
-\newcommand{\arulefill}{%
-  \phantom{a}\xrfill[-1ex]{0.4pt}[black]\phantom{a}
-}
-
 \makeatletter
 \def\lowerdotfill{%
   \phantom{a}\leavevmode
@@ -229,3 +224,11 @@
   \end{tblr}
   \medskip
 }
+
+ \newcommand{\arulefill}{%
+ 	\phantom{a}\xrfill[-1ex]{0.4pt}[black]\phantom{a}
+ }
+ 
+ \makeatletter
+ \renewcommand \dotfill {\leavevmode \cleaders \hb@xt@ 2em{\hss .\hss }\hfill \kern \z@}
+ \makeatother

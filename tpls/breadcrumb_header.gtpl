@@ -3,4 +3,4 @@
 \hfill%
 {{ .Body.Extra.Table false -}}
 }
-\myLineThick\medskip
+\myLineThick
