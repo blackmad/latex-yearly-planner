@@ -19,6 +19,44 @@
  \makeatletter
  \renewcommand \dotfill {\leavevmode \cleaders \hb@xt@ 2em{\hss .\hss }\hfill \kern \z@}
  \makeatother
+ 
+ \usepackage{tikz}
+ \usetikzlibrary{patterns}
+ 
+ 
+ %%-----------------------------------------------------------------------
+ %% This section sets up a routine for filling the squares in a
+ %% grid with null lines.
+ %%-----------------------------------------------------------------------
+ \def\squaresize{0.25in}
+ \pgfdeclarepatternformonly
+ {lightcones}% name
+ {\pgfpointorigin}% lower left
+ {\pgfpoint{\squaresize}{\squaresize}}%  upper right
+ {\pgfpoint{\squaresize}{\squaresize}}%  tile size
+ {% shape description
+ 	\pgfsetlinewidth{0.4pt}
+ 	\pgfpathmoveto{\pgfpoint{0in}{0in}}
+ 	\pgfpathlineto{\pgfpoint{\squaresize}{\squaresize}}
+ 	\pgfpathmoveto{\pgfpoint{0in}{\squaresize}}
+ 	\pgfpathlineto{\pgfpoint{\squaresize}{0in}}
+ 	\pgfusepath{stroke}
+ }
+ 
+ %%-----------------------------------------------------------------------
+ %% This section sets up a routine for filling a region with dots
+ %%-----------------------------------------------------------------------
+ % Re-use the quantity \squaresize defined above
+ \def\dotsize{.7pt}
+ \pgfdeclarepatternformonly
+ {dotgrid}% name
+ {\pgfpoint{-0.5*\squaresize}{-0.5*\squaresize}}% lower left
+ {\pgfpoint{0.5*\squaresize}{0.5*\squaresize}}%  upper right
+ {\pgfpoint{\squaresize}{\squaresize}}%  tile size
+ {% shape description
+ 	\pgfpathcircle{\pgfqpoint{0pt}{0pt}}{\dotsize}
+ 	\pgfusepath{fill}
+ }
 
 
 	 
@@ -64,14 +102,6 @@ boxes={enhanced,
 			-- cycle;} }}
 		]
 	
-		\posterbox[title=Top Priorities]{span=3,row=1}{    
-
-	\item \arulefill
-	\item \arulefill
-	\item \arulefill
-
-	}
-
 		\posterbox[title=Work Priorities]{row=2}{    
 	\begin{enumerate}
 		%	  \setlength\itemsep{0.3*}
@@ -101,8 +131,16 @@ boxes={enhanced,
 	\end{enumerate}
 }
 
-\posterbox[title=I am looking forward to..., top=3mm, left=0mm, right=0mm]{span=3,row=3,}
-{\fillwithdottedlines{\tcbtextheight}}
+\posterbox[title=I am looking forward to..., top=3mm, left=0mm, right=0mm,
+			underlay={            
+	\begin{tcbclipinterior}
+%		\coordinate (X) at ([xshift=0,yshift=-5mm]frame.north west);
+%		\draw[help lines, ystep=\baselineskip, xstep=\linewidth] (X) grid (frame.south east);
+      \fill [pattern=dotgrid] (0,0) rectangle (8.5in,11in);
+
+	\end{tcbclipinterior}
+}
+]{span=3,row=3,}{}
 
 \posterbox[title=What am I grateful for today?, top=3mm, left=0mm, right=0mm]{span=3,row=4,}
 {\fillwithdottedlines{\tcbtextheight}}

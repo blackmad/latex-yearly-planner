@@ -1,3 +1,6 @@
 vendor
 out
 *pdf
+*.aux
+*.gz
+*.log

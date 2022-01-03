@@ -46,6 +46,8 @@
 \usepackage{ulem}
 \usepackage{tabularray}
 
+\usetikzlibrary{patterns}
+
 \usepackage{enumitem,amssymb}
 \newlist{todolist}{itemize}{2}
 \setlist[todolist]{label=$\square$}

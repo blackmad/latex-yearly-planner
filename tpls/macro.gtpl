@@ -232,6 +232,43 @@
  \renewcommand \dotfill {\leavevmode \cleaders \hb@xt@ 2em{\hss .\hss }\hfill \kern \z@}
  \makeatother
 
+% from: https://gist.github.com/duetosymmetry/e3ee991065be6e35e02ecf2fcc3d9fad
+
+%%-----------------------------------------------------------------------
+%% This section sets up a routine for filling the squares in a
+%% grid with null lines.
+%%-----------------------------------------------------------------------
+  \newcommand{\squaresize}{0.15in}
+  \pgfdeclarepatternformonly
+    {lightcones}% name
+    {\pgfpointorigin}% lower left
+    {\pgfpoint{\squaresize}{\squaresize}}%  upper right
+    {\pgfpoint{\squaresize}{\squaresize}}%  tile size
+    {% shape description
+     \pgfsetlinewidth{0.4pt}
+     \pgfpathmoveto{\pgfpoint{0in}{0in}}
+     \pgfpathlineto{\pgfpoint{\squaresize}{\squaresize}}
+     \pgfpathmoveto{\pgfpoint{0in}{\squaresize}}
+     \pgfpathlineto{\pgfpoint{\squaresize}{0in}}
+     \pgfusepath{stroke}
+    }
+
+%%-----------------------------------------------------------------------
+%% This section sets up a routine for filling a region with dots
+%%-----------------------------------------------------------------------
+  % Re-use the quantity \squaresize defined above
+  \def\dotsize{.7pt}
+  \pgfdeclarepatternformonly
+    {dotgrid}% name
+    {\pgfpoint{-0.5*\squaresize}{-0.5*\squaresize}}% lower left
+    {\pgfpoint{0.5*\squaresize}{0.5*\squaresize}}%  upper right
+    {\pgfpoint{\squaresize}{\squaresize}}%  tile size
+    {% shape description
+     \pgfpathcircle{\pgfqpoint{0pt}{0pt}}{\dotsize}
+     \pgfusepath{fill}
+    }
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Commands for working in poster env
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -317,41 +354,56 @@
     }
   }
 
-\newcommand{\posterboxBareBox}[3]{
-  \posterbox[
+\tcbset{
+  emptyBox/.style={
       enhanced,
       add to height=-3mm,
       top=-3mm,
-      title=#2,
       colframe=white,
       attach boxed title to top left,
       boxed title style={empty},
+  },
+  fancyBlueBox/.style={
+        enhanced,
+				right=0pt,
+				left=0pt,
+				fit,
+				colframe=blue!50!black,
+				colback=blue!10!white,
+				colbacktitle=blue!5!yellow!10!white,
+				fonttitle=\small\bfseries,
+				coltitle=black,
+				attach boxed title to top center={yshift=-0.25mm-\tcboxedtitleheight/2,yshifttext=2mm-\tcboxedtitleheight/2},
+				boxed title style={boxrule=0.5mm,
+						frame code={ \path[tcb fill frame] ([xshift=-4mm]frame.west)
+								-- (frame.north west) -- (frame.north east) -- ([xshift=4mm]frame.east)
+								-- (frame.south east) -- (frame.south west) -- cycle; },
+						interior code={ \path[tcb fill interior] ([xshift=-2mm]interior.west)
+								-- (interior.north west) -- (interior.north east)
+								-- ([xshift=2mm]interior.east) -- (interior.south east) -- (interior.south west)
+								-- cycle;} }
+  }
+}
+
+\newcommand{\posterboxBareBox}[3]{
+  \posterbox[
+      emptyBox,
+      title=#2
     ]{
     #1}{
       #3  
     }
 }
 
-\tikzset{%
-  dots/.style args={#1per #2}{%
-    line cap=round,
-    dash pattern=on 0 off #2/#1
-  }
-}
-
 \newcommand{\posterboxBareBoxWithDots}[2]{
   \posterbox[
-      enhanced,
-      add to height=-3mm,
-      top=-3mm,
+      emptyBox,
       title=#2,
-      colframe=white,
-      attach boxed title to top left,
-      boxed title style={empty},
-      underlay={            
+      overlay={            
 				\begin{tcbclipinterior}
 		    		\coordinate (X) at ([xshift=0,yshift=-5mm]frame.north west);
-					\draw[very thick, dots=\i per 1cm, ystep=\baselineskip, xstep=\linewidth] (X) node (frame.south east) {\i\ dot\ifnum\i>1s\fi\ per 1cm};
+            \fill [pattern=dotgrid] (0,0) rectangle (8.5in,11in);
+				% (frame.south east)
 				\end{tcbclipinterior}
 			}
     ]{
