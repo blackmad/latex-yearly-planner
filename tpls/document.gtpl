@@ -1,5 +1,15 @@
 \documentclass[9pt]{exam}
 
+\title{\vspace{-20cm}}
+
+
+\usepackage{geometry}
+
+\geometry{textwidth=\paperwidth, textheight=\paperheight, noheadfoot, nomarginpar}
+\setlength{\topskip}{0mm}
+\setlength{\parindent}{0mm}
+
+
 \newlength{\mytextsize}
 
    %This part fails....  (no it doesn't:-)
@@ -60,10 +70,10 @@
 \parindent=0pt
 \fboxsep0pt
 
+\extraheadheight{-.5in}
+
 \begin{document}
-
 {{template "macro.gtpl" .}}
-
 \include{content}
 \end{document}
 

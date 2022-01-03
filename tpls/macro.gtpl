@@ -2,10 +2,9 @@
 \cs_new_eq:NN \Repeat \prg_replicate:nn
 \ExplSyntaxOff
 
- \makeatletter
- \renewcommand \dotfill {\leavevmode \cleaders \hb@xt@ 1.5em{\hss .\hss }\hfill \kern \z@}
- 
- \makeatother
+ %\makeatletter
+ %\renewcommand \dotfill {\leavevmode \cleaders \hb@xt@ 1.5em{\hss .\hss }\hfill \kern \z@}
+ %\makeatother
 
 \newcommand{\myMinLineHeight}[1]{\parbox{0pt}{\vskip#1}}
 \newcommand{\myDummyQ}{\textcolor{white}{Q}}
@@ -141,12 +140,12 @@
 \end{tcolorbox}
 }
 
-\newcommand{\myUnderlinedSectionBoxedTwo}[3][\stretch{1}][xxxx]{
+\newcommand{\myUnderlinedSectionBoxedTwo}[2]{
 \begin{tcolorbox}[
   colback=backgroundHighlight,
   height fill
 ]
-  \#3
+  \#1
   \tcblower
   \#2
 \end{tcolorbox}
@@ -232,3 +231,131 @@
  \makeatletter
  \renewcommand \dotfill {\leavevmode \cleaders \hb@xt@ 2em{\hss .\hss }\hfill \kern \z@}
  \makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Commands for working in poster env
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\posterboxContentsThreeline}{
+		\vspace{\mytextsize}
+		\arulefill
+
+		\vspace{\mytextsize}
+		\arulefill
+
+		\vspace{\mytextsize}
+
+		\arulefill
+    \vspace{\mytextsize}
+  }
+
+  \newcommand{\posterboxFullWidthBox}[2]{
+  		\posterbox[
+			title=#2, 
+		]{span=12,row=#1,}{}
+  }
+
+   \newcommand{\posterboxHalfWidthBox}[2]{
+  		\posterbox[
+			title=#2, 
+		]{span=6,row=#1,}{}
+  }
+
+  \newcommand{\posterboxFullWidthLinedBoxHelper}[3]{
+  		\posterbox[
+			title=#3, 
+			underlay={            
+				\begin{tcbclipinterior}
+		    		\coordinate (X) at ([xshift=0,yshift=-5mm]frame.north west);
+					\draw[help lines, ystep=\baselineskip, xstep=\linewidth] (X) grid (frame.south east);
+				\end{tcbclipinterior}
+			}
+		]{span=#2,row=#1,}{}
+  }
+
+  \newcommand{\posterboxFullWidthLinedBox}[2]{
+    \posterboxFullWidthLinedBoxHelper{#1}{12}{#2}
+  }
+
+  \newcommand{\posterboxHalfWidthLinedBox}[2]{
+      \posterboxFullWidthLinedBoxHelper{#1}{6}{#2}
+  }
+
+
+  \newcommand{\posterboxFullWidthThreeEnums}[2]{
+  	\posterbox[title=#2,valign=center]{span=12,row=#1}{
+      \begin{enumerate}
+        %	  \setlength\itemsep{0.3*}
+        %	  \setlength\itemsep{(\tcbtextheight/5)}
+        \item \arulefill
+        \item \arulefill
+        \item \arulefill
+      \end{enumerate}
+    }
+  }
+
+  \newcommand{\posterboxThreeColumnThreeLine}[4]{
+    \posterbox[
+      title=#2,
+      valign=center
+    ]{row=#1,span=4}{
+      \posterboxContentsThreeline
+    }
+
+  \posterbox[
+      title=#3,
+      valign=center
+    ]{row=#1,column=5,span=4}{
+      \posterboxContentsThreeline
+    }
+
+    \posterbox[
+      title=#4,
+      valign=center
+    ]{row=#1,column=9,span=4}{
+        \posterboxContentsThreeline
+    }
+  }
+
+\newcommand{\posterboxBareBox}[3]{
+  \posterbox[
+      enhanced,
+      add to height=-3mm,
+      top=-3mm,
+      title=#2,
+      colframe=white,
+      attach boxed title to top left,
+      boxed title style={empty},
+    ]{
+    #1}{
+      #3  
+    }
+}
+
+\tikzset{%
+  dots/.style args={#1per #2}{%
+    line cap=round,
+    dash pattern=on 0 off #2/#1
+  }
+}
+
+\newcommand{\posterboxBareBoxWithDots}[2]{
+  \posterbox[
+      enhanced,
+      add to height=-3mm,
+      top=-3mm,
+      title=#2,
+      colframe=white,
+      attach boxed title to top left,
+      boxed title style={empty},
+      underlay={            
+				\begin{tcbclipinterior}
+		    		\coordinate (X) at ([xshift=0,yshift=-5mm]frame.north west);
+					\draw[very thick, dots=\i per 1cm, ystep=\baselineskip, xstep=\linewidth] (X) node (frame.south east) {\i\ dot\ifnum\i>1s\fi\ per 1cm};
+				\end{tcbclipinterior}
+			}
+    ]{
+    #1}{
+ 
+    }
+}

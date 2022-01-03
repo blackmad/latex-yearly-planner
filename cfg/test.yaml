@@ -68,21 +68,21 @@ pages:
   - name: Daily Plan
     funcname: daily
     template: daily_plan.gtpl
-  - name: Daily Reflection
-    funcname: daily
-    template: daily_reflect.gtpl
-  - name: Weekly Reflect
-    funcname: weekly
-    template: weekly_reflect.gtpl
-  - name: Weekly Plan
-    funcname: weekly
-    template: weekly_plan.gtpl
-  - name: Month Plan
-    funcname: monthly
-    template: monthly_plan.gtpl
-  - name: Month Calendar
-    funcname: monthly
-    template: monthly_calendar.gtpl
+  # - name: Daily Reflection
+  #   funcname: daily
+  #   template: daily_reflect.gtpl
+  # - name: Weekly Reflect
+  #   funcname: weekly
+  #   template: weekly_reflect.gtpl
+  # - name: Weekly Plan
+  #   funcname: weekly
+  #   template: weekly_plan.gtpl
+  # - name: Month Plan
+  #   funcname: monthly
+  #   template: monthly_plan.gtpl
+  # - name: Month Calendar
+  #   funcname: monthly
+  #   template: monthly_calendar.gtpl
 
   # - name: daily_plan
   #   renderblocks:
